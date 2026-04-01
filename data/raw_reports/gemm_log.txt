@@ -1,0 +1,294 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_gemm gemm.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_gemm
+    Parameter @428529 ni
+    Interface specification:
+      Parameter : ni
+      Protocol  : default
+      Direction : IN
+      Bundle    : ni
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428530 nj
+    Interface specification:
+      Parameter : nj
+      Protocol  : default
+      Direction : IN
+      Bundle    : nj
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428531 nk
+    Interface specification:
+      Parameter : nk
+      Protocol  : default
+      Direction : IN
+      Bundle    : nk
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428532 alpha
+    Interface specification:
+      Parameter : alpha
+      Protocol  : default
+      Direction : IN
+      Bundle    : alpha
+      Bitwidth  : 64
+      Alignment : 8
+    Parameter @428533 beta
+    Interface specification:
+      Parameter : beta
+      Protocol  : default
+      Direction : IN
+      Bundle    : beta
+      Bitwidth  : 64
+      Alignment : 8
+    Parameter @428534 C
+    Interface specification:
+      Parameter : C
+      Protocol  : default
+      Direction : IN
+      Bundle    : C
+      Bitwidth  : 32
+      Size      : 1100000
+      Alignment : 4
+    Parameter @428535 A
+    Interface specification:
+      Parameter : A
+      Protocol  : default
+      Direction : IN
+      Bundle    : A
+      Bitwidth  : 32
+      Size      : 1200000
+      Alignment : 4
+    Parameter @428536 B
+    Interface specification:
+      Parameter : B
+      Protocol  : default
+      Direction : IN
+      Bundle    : B
+      Bitwidth  : 32
+      Size      : 1320000
+      Alignment : 4
+  Analyzed function kernel_gemm
+Removing2: switch ((unsigned char)  _10328_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Before2  : switch ((unsigned char)  _10328_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Required never inline for function kernel_gemm
+Constraining function __float_mule11m52b_1023nih with 1 resources
+Constraining function __float_adde11m52b_1023nih with 1 resources
+
+  Functions to be synthesized:
+    kernel_gemm
+    __float_mule11m52b_1023nih
+    __float_adde11m52b_1023nih
+
+  Upgraded function constraints for kernel_gemm with 1 resources of __float_mule11m52b_1023nih, before was INF
+  Upgraded function constraints for kernel_gemm with 1 resources of __float_adde11m52b_1023nih, before was INF
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_gemm
+    BRAM bitsize: 64
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 64
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 7
+    Code has LOADs or STOREs with unaligned accesses
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function __float_mule11m52b_1023nih:
+    Number of complex operations: 4
+    Number of complex operations: 4
+  Time to perform module allocation: 0.04 seconds
+
+
+  Module allocation information for function __float_adde11m52b_1023nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function __float_mule11m52b_1023nih:
+    Number of control steps: 6
+    Minimum slack: 0.39039999400001513
+    Estimated max frequency (MHz): 104.06260399763008
+  Time to perform scheduling: 0.01 seconds
+
+
+  State Transition Graph Information of function __float_mule11m52b_1023nih:
+    Number of states: 5
+    Minimum number of cycles: 5
+    Maximum number of cycles 5
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Scheduling Information of function __float_adde11m52b_1023nih:
+    Number of control steps: 6
+    Minimum slack: 0.03639999700000196
+    Estimated max frequency (MHz): 100.36532977025415
+  Time to perform scheduling: 0.03 seconds
+
+
+  State Transition Graph Information of function __float_adde11m52b_1023nih:
+    Number of states: 5
+    Minimum number of cycles: 5
+    Maximum number of cycles 5
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function __float_mule11m52b_1023nih:
+    Bound operations:57/107
+  Time to perform easy binding: 0.00 seconds
+
+
+  Easy binding information for function __float_adde11m52b_1023nih:
+    Bound operations:189/262
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function __float_mule11m52b_1023nih:
+    Number of storage values inserted: 19
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_adde11m52b_1023nih:
+    Number of storage values inserted: 28
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 19 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.01 seconds
+
+  Module binding information for function __float_mule11m52b_1023nih:
+    Number of modules instantiated: 107
+    Number of performance conflicts: 7
+    Estimated resources area (no Muxes and address logic): 1525
+    Estimated area of MUX21: 0
+    Total estimated area: 1525
+    Estimated number of DSPs: 12
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 19 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_mule11m52b_1023nih: 532
+  Slack computed in 0.01 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 28 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_adde11m52b_1023nih:
+    Number of modules instantiated: 262
+    Number of performance conflicts: 39
+    Estimated resources area (no Muxes and address logic): 3455
+    Estimated area of MUX21: 0
+    Total estimated area: 3455
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 28 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_adde11m52b_1023nih: 444
+
+  Module allocation information for function kernel_gemm:
+    Number of complex operations: 36
+    Number of complex operations: 36
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function kernel_gemm:
+    Number of control steps: 99
+    Minimum slack: 0.036399996999998407
+    Estimated max frequency (MHz): 100.36532977025411
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function kernel_gemm:
+    Number of states: 97
+    Done port is registered
+  Time to perform creation of STG: 0.01 seconds
+
+
+  Easy binding information for function kernel_gemm:
+    Bound operations:251/394
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function kernel_gemm:
+    Number of storage values inserted: 87
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.01 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function kernel_gemm:
+    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
+  Time to perform register binding: 0.00 seconds
+
+
+  Register binding information for function kernel_gemm:
+    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
+  Time to perform register binding: 0.01 seconds
+
+  Clique covering computation completed in 0.02 seconds
+
+  Module binding information for function kernel_gemm:
+    Number of modules instantiated: 359
+    Number of performance conflicts: 27
+    Estimated resources area (no Muxes and address logic): 6882
+    Estimated area of MUX21: 416
+    Total estimated area: 7298
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.03 seconds
+
+
+  Register binding information for function kernel_gemm:
+    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
+  Time to perform register binding: 0.01 seconds
+
+
+  Connection Binding Information for function kernel_gemm:
+    Number of allocated multiplexers (2-to-1 equivalent): 40
+  Time to perform interconnection binding: 0.01 seconds
+
+  Total number of flip-flops in function kernel_gemm: 1675
