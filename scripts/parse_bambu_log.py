@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 CSV_FIELDS = [
-    "benchmark", "design_name", "control_steps", "min_slack", "frequency_mhz",
+    "benchmark", "dataset_size", "design_name", "control_steps", "min_slack", "frequency_mhz",
     "states", "modules_instantiated", "performance_conflicts", "flipflops",
     "area_est", "mux_area", "total_area", "registers", "dsps", "log_file"
 ]
@@ -122,9 +122,16 @@ def parse_bambu_log(log_file_path):
     if design_match:
         metrics['design_name'] = design_match.group(1)
 
-    # Add benchmark identifier derived from the log filename
-    benchmark_name = Path(log_file_path).stem.replace('_log', '')
-    metrics['benchmark'] = benchmark_name
+    # Add benchmark and dataset size derived from the log filename
+    filename = Path(log_file_path).stem
+    parts = filename.split("_")
+
+    if len(parts) >= 3:
+        metrics['benchmark'] = parts[0]
+        metrics['dataset_size'] = parts[1]
+    else:
+        metrics['benchmark'] = filename.replace('_log', '')
+        metrics['dataset_size'] = "DEFAULT"
 
     # Add metadata
     metrics['log_file'] = str(Path(log_file_path).name)
