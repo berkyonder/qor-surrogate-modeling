@@ -1,4 +1,4 @@
- ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_gemm gemm.c 
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_trmm trmm.c 
 
 
 ********************************************************************************
@@ -17,32 +17,24 @@
                 Copyright (C) 2004-2024 Politecnico di Milano
  Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
 
-  Analyzing function kernel_gemm
-    Parameter @428529 ni
+  Analyzing function kernel_trmm
+    Parameter @428529 m
     Interface specification:
-      Parameter : ni
+      Parameter : m
       Protocol  : default
       Direction : IN
-      Bundle    : ni
+      Bundle    : m
       Bitwidth  : 32
       Alignment : 4
-    Parameter @428530 nj
+    Parameter @428530 n
     Interface specification:
-      Parameter : nj
+      Parameter : n
       Protocol  : default
       Direction : IN
-      Bundle    : nj
+      Bundle    : n
       Bitwidth  : 32
       Alignment : 4
-    Parameter @428531 nk
-    Interface specification:
-      Parameter : nk
-      Protocol  : default
-      Direction : IN
-      Bundle    : nk
-      Bitwidth  : 32
-      Alignment : 4
-    Parameter @428532 alpha
+    Parameter @428531 alpha
     Interface specification:
       Parameter : alpha
       Protocol  : default
@@ -50,58 +42,41 @@
       Bundle    : alpha
       Bitwidth  : 64
       Alignment : 8
-    Parameter @428533 beta
-    Interface specification:
-      Parameter : beta
-      Protocol  : default
-      Direction : IN
-      Bundle    : beta
-      Bitwidth  : 64
-      Alignment : 8
-    Parameter @428534 C
-    Interface specification:
-      Parameter : C
-      Protocol  : default
-      Direction : IN
-      Bundle    : C
-      Bitwidth  : 32
-      Size      : 1100000
-      Alignment : 4
-    Parameter @428535 A
+    Parameter @428532 A
     Interface specification:
       Parameter : A
       Protocol  : default
       Direction : IN
       Bundle    : A
       Bitwidth  : 32
-      Size      : 1200000
+      Size      : 1000000
       Alignment : 4
-    Parameter @428536 B
+    Parameter @428533 B
     Interface specification:
       Parameter : B
       Protocol  : default
       Direction : IN
       Bundle    : B
       Bitwidth  : 32
-      Size      : 1320000
+      Size      : 1200000
       Alignment : 4
-  Analyzed function kernel_gemm
-Removing2: switch ((unsigned char)  _10328_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
-Before2  : switch ((unsigned char)  _10328_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
-Required never inline for function kernel_gemm
+  Analyzed function kernel_trmm
+Removing2: switch ((unsigned char)  _10218_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Before2  : switch ((unsigned char)  _10218_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Required never inline for function kernel_trmm
 Constraining function __float_mule11m52b_1023nih with 1 resources
 Constraining function __float_adde11m52b_1023nih with 1 resources
 
   Functions to be synthesized:
-    kernel_gemm
+    kernel_trmm
     __float_mule11m52b_1023nih
     __float_adde11m52b_1023nih
 
-  Upgraded function constraints for kernel_gemm with 1 resources of __float_mule11m52b_1023nih, before was INF
-  Upgraded function constraints for kernel_gemm with 1 resources of __float_adde11m52b_1023nih, before was INF
+  Upgraded function constraints for kernel_trmm with 1 resources of __float_mule11m52b_1023nih, before was INF
+  Upgraded function constraints for kernel_trmm with 1 resources of __float_adde11m52b_1023nih, before was INF
 
   Memory allocation information:
-Warning: This function uses unknown addresses: kernel_gemm
+Warning: This function uses unknown addresses: kernel_trmm
     BRAM bitsize: 64
     Spec may not exploit DATA bus width
     Spec accesses data having an address unknown at compile time
@@ -118,20 +93,20 @@ Warning: This function uses unknown addresses: kernel_gemm
   Module allocation information for function __float_mule11m52b_1023nih:
     Number of complex operations: 4
     Number of complex operations: 4
-  Time to perform module allocation: 0.03 seconds
+  Time to perform module allocation: 0.02 seconds
 
 
   Module allocation information for function __float_adde11m52b_1023nih:
     Number of complex operations: 0
     Number of complex operations: 0
-  Time to perform module allocation: 0.06 seconds
+  Time to perform module allocation: 0.04 seconds
 
 
   Scheduling Information of function __float_mule11m52b_1023nih:
     Number of control steps: 6
     Minimum slack: 0.39039999400001513
     Estimated max frequency (MHz): 104.06260399763008
-  Time to perform scheduling: 0.01 seconds
+  Time to perform scheduling: 0.00 seconds
 
 
   State Transition Graph Information of function __float_mule11m52b_1023nih:
@@ -156,7 +131,7 @@ Warning: This function uses unknown addresses: kernel_gemm
     Maximum number of cycles 5
     Parameters are registered
     Done port is registered
-  Time to perform creation of STG: 0.01 seconds
+  Time to perform creation of STG: 0.00 seconds
 
 
   Easy binding information for function __float_mule11m52b_1023nih:
@@ -166,7 +141,7 @@ Warning: This function uses unknown addresses: kernel_gemm
 
   Easy binding information for function __float_adde11m52b_1023nih:
     Bound operations:189/262
-  Time to perform easy binding: 0.00 seconds
+  Time to perform easy binding: 0.01 seconds
 
 
   Storage Value Information of function __float_mule11m52b_1023nih:
@@ -176,7 +151,7 @@ Warning: This function uses unknown addresses: kernel_gemm
 
   Storage Value Information of function __float_adde11m52b_1023nih:
     Number of storage values inserted: 28
-  Time to compute storage value information: 0.01 seconds
+  Time to compute storage value information: 0.00 seconds
 
   Slack computed in 0.00 seconds
   Weight computation completed in 0.00 seconds
@@ -220,7 +195,7 @@ Warning: This function uses unknown addresses: kernel_gemm
     Estimated area of MUX21: 0
     Total estimated area: 3455
     Estimated number of DSPs: 0
-  Time to perform module binding: 0.01 seconds
+  Time to perform module binding: 0.00 seconds
 
 
   Register binding information for function __float_adde11m52b_1023nih:
@@ -229,66 +204,66 @@ Warning: This function uses unknown addresses: kernel_gemm
 
   Total number of flip-flops in function __float_adde11m52b_1023nih: 444
 
-  Module allocation information for function kernel_gemm:
-    Number of complex operations: 36
-    Number of complex operations: 36
+  Module allocation information for function kernel_trmm:
+    Number of complex operations: 18
+    Number of complex operations: 18
   Time to perform module allocation: 0.04 seconds
 
 
-  Scheduling Information of function kernel_gemm:
-    Number of control steps: 99
+  Scheduling Information of function kernel_trmm:
+    Number of control steps: 58
     Minimum slack: 0.036399996999998407
     Estimated max frequency (MHz): 100.36532977025411
-  Time to perform scheduling: 0.03 seconds
+  Time to perform scheduling: 0.01 seconds
 
 
-  State Transition Graph Information of function kernel_gemm:
-    Number of states: 97
+  State Transition Graph Information of function kernel_trmm:
+    Number of states: 56
     Done port is registered
   Time to perform creation of STG: 0.01 seconds
 
 
-  Easy binding information for function kernel_gemm:
-    Bound operations:251/394
-  Time to perform easy binding: 0.01 seconds
+  Easy binding information for function kernel_trmm:
+    Bound operations:131/253
+  Time to perform easy binding: 0.00 seconds
 
 
-  Storage Value Information of function kernel_gemm:
-    Number of storage values inserted: 87
+  Storage Value Information of function kernel_trmm:
+    Number of storage values inserted: 58
   Time to compute storage value information: 0.00 seconds
 
   Slack computed in 0.00 seconds
-  Weight computation completed in 0.00 seconds
+  Weight computation completed in 0.01 seconds
   False-loop computation completed in 0.00 seconds
 
-  Register binding information for function kernel_gemm:
-    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 44 registers(LB:24)
   Time to perform register binding: 0.00 seconds
 
 
-  Register binding information for function kernel_gemm:
-    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
-  Time to perform register binding: 0.01 seconds
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 44 registers(LB:24)
+  Time to perform register binding: 0.00 seconds
 
-  Clique covering computation completed in 0.03 seconds
+  Clique covering computation completed in 0.00 seconds
 
-  Module binding information for function kernel_gemm:
-    Number of modules instantiated: 359
-    Number of performance conflicts: 27
-    Estimated resources area (no Muxes and address logic): 6882
-    Estimated area of MUX21: 416
-    Total estimated area: 7298
+  Module binding information for function kernel_trmm:
+    Number of modules instantiated: 239
+    Number of performance conflicts: 64
+    Estimated resources area (no Muxes and address logic): 6320
+    Estimated area of MUX21: 209
+    Total estimated area: 6529
     Estimated number of DSPs: 0
-  Time to perform module binding: 0.04 seconds
+  Time to perform module binding: 0.01 seconds
 
 
-  Register binding information for function kernel_gemm:
-    Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
-  Time to perform register binding: 0.01 seconds
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 44 registers(LB:24)
+  Time to perform register binding: 0.00 seconds
 
 
-  Connection Binding Information for function kernel_gemm:
-    Number of allocated multiplexers (2-to-1 equivalent): 40
+  Connection Binding Information for function kernel_trmm:
+    Number of allocated multiplexers (2-to-1 equivalent): 20
   Time to perform interconnection binding: 0.01 seconds
 
-  Total number of flip-flops in function kernel_gemm: 1675
+  Total number of flip-flops in function kernel_trmm: 1355

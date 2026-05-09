@@ -141,7 +141,7 @@ Warning: This function uses unknown addresses: kernel_bicg
     Number of control steps: 6
     Minimum slack: 0.03639999700000196
     Estimated max frequency (MHz): 100.36532977025415
-  Time to perform scheduling: 0.03 seconds
+  Time to perform scheduling: 0.02 seconds
 
 
   State Transition Graph Information of function __float_adde11m52b_1023nih:
@@ -150,7 +150,7 @@ Warning: This function uses unknown addresses: kernel_bicg
     Maximum number of cycles 5
     Parameters are registered
     Done port is registered
-  Time to perform creation of STG: 0.00 seconds
+  Time to perform creation of STG: 0.01 seconds
 
 
   Easy binding information for function __float_mule11m52b_1023nih:
@@ -170,7 +170,7 @@ Warning: This function uses unknown addresses: kernel_bicg
 
   Storage Value Information of function __float_adde11m52b_1023nih:
     Number of storage values inserted: 28
-  Time to compute storage value information: 0.01 seconds
+  Time to compute storage value information: 0.00 seconds
 
   Slack computed in 0.00 seconds
   Weight computation completed in 0.00 seconds
@@ -194,7 +194,7 @@ Warning: This function uses unknown addresses: kernel_bicg
 
   Register binding information for function __float_mule11m52b_1023nih:
     Register allocation algorithm obtains a sub-optimal result: 19 registers(LB:12)
-  Time to perform register binding: 0.00 seconds
+  Time to perform register binding: 0.01 seconds
 
   Total number of flip-flops in function __float_mule11m52b_1023nih: 532
   Slack computed in 0.00 seconds
@@ -226,7 +226,7 @@ Warning: This function uses unknown addresses: kernel_bicg
   Module allocation information for function kernel_bicg:
     Number of complex operations: 22
     Number of complex operations: 22
-  Time to perform module allocation: 0.02 seconds
+  Time to perform module allocation: 0.03 seconds
 
 
   Scheduling Information of function kernel_bicg:
@@ -264,7 +264,7 @@ Warning: This function uses unknown addresses: kernel_bicg
     Register allocation algorithm obtains a sub-optimal result: 32 registers(LB:14)
   Time to perform register binding: 0.00 seconds
 
-  Clique covering computation completed in 0.01 seconds
+  Clique covering computation completed in 0.00 seconds
 
   Module binding information for function kernel_bicg:
     Number of modules instantiated: 203
@@ -283,6 +283,6 @@ Warning: This function uses unknown addresses: kernel_bicg
 
   Connection Binding Information for function kernel_bicg:
     Number of allocated multiplexers (2-to-1 equivalent): 25
-  Time to perform interconnection binding: 0.01 seconds
+  Time to perform interconnection binding: 0.00 seconds
 
   Total number of flip-flops in function kernel_bicg: 1017

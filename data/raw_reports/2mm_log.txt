@@ -144,20 +144,20 @@ Warning: This function uses unknown addresses: kernel_2mm
   Module allocation information for function __float_mule11m52b_1023nih:
     Number of complex operations: 4
     Number of complex operations: 4
-  Time to perform module allocation: 0.02 seconds
+  Time to perform module allocation: 0.03 seconds
 
 
   Module allocation information for function __float_adde11m52b_1023nih:
     Number of complex operations: 0
     Number of complex operations: 0
-  Time to perform module allocation: 0.05 seconds
+  Time to perform module allocation: 0.04 seconds
 
 
   Scheduling Information of function __float_mule11m52b_1023nih:
     Number of control steps: 6
     Minimum slack: 0.39039999400001513
     Estimated max frequency (MHz): 104.06260399763008
-  Time to perform scheduling: 0.00 seconds
+  Time to perform scheduling: 0.01 seconds
 
 
   State Transition Graph Information of function __float_mule11m52b_1023nih:
@@ -166,7 +166,7 @@ Warning: This function uses unknown addresses: kernel_2mm
     Maximum number of cycles 5
     Parameters are registered
     Done port is registered
-  Time to perform creation of STG: 0.01 seconds
+  Time to perform creation of STG: 0.00 seconds
 
 
   Scheduling Information of function __float_adde11m52b_1023nih:
@@ -182,7 +182,7 @@ Warning: This function uses unknown addresses: kernel_2mm
     Maximum number of cycles 5
     Parameters are registered
     Done port is registered
-  Time to perform creation of STG: 0.00 seconds
+  Time to perform creation of STG: 0.01 seconds
 
 
   Easy binding information for function __float_mule11m52b_1023nih:
@@ -204,7 +204,7 @@ Warning: This function uses unknown addresses: kernel_2mm
     Number of storage values inserted: 28
   Time to compute storage value information: 0.00 seconds
 
-  Slack computed in 0.00 seconds
+  Slack computed in 0.01 seconds
   Weight computation completed in 0.00 seconds
   False-loop computation completed in 0.00 seconds
 
@@ -221,7 +221,7 @@ Warning: This function uses unknown addresses: kernel_2mm
     Estimated area of MUX21: 0
     Total estimated area: 1525
     Estimated number of DSPs: 12
-  Time to perform module binding: 0.00 seconds
+  Time to perform module binding: 0.01 seconds
 
 
   Register binding information for function __float_mule11m52b_1023nih:
@@ -229,7 +229,7 @@ Warning: This function uses unknown addresses: kernel_2mm
   Time to perform register binding: 0.00 seconds
 
   Total number of flip-flops in function __float_mule11m52b_1023nih: 532
-  Slack computed in 0.01 seconds
+  Slack computed in 0.00 seconds
   Weight computation completed in 0.00 seconds
   False-loop computation completed in 0.00 seconds
 
@@ -258,20 +258,20 @@ Warning: This function uses unknown addresses: kernel_2mm
   Module allocation information for function kernel_2mm:
     Number of complex operations: 37
     Number of complex operations: 37
-  Time to perform module allocation: 0.04 seconds
+  Time to perform module allocation: 0.05 seconds
 
 
   Scheduling Information of function kernel_2mm:
     Number of control steps: 119
     Minimum slack: 0.036399996999998407
     Estimated max frequency (MHz): 100.36532977025411
-  Time to perform scheduling: 0.06 seconds
+  Time to perform scheduling: 0.04 seconds
 
 
   State Transition Graph Information of function kernel_2mm:
     Number of states: 117
     Done port is registered
-  Time to perform creation of STG: 0.00 seconds
+  Time to perform creation of STG: 0.01 seconds
 
 
   Easy binding information for function kernel_2mm:
@@ -283,13 +283,13 @@ Warning: This function uses unknown addresses: kernel_2mm
     Number of storage values inserted: 90
   Time to compute storage value information: 0.00 seconds
 
-  Slack computed in 0.01 seconds
+  Slack computed in 0.00 seconds
   Weight computation completed in 0.01 seconds
   False-loop computation completed in 0.00 seconds
 
   Register binding information for function kernel_2mm:
     Register allocation algorithm obtains a sub-optimal result: 61 registers(LB:32)
-  Time to perform register binding: 0.00 seconds
+  Time to perform register binding: 0.01 seconds
 
 
   Register binding information for function kernel_2mm:

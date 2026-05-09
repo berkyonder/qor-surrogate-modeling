@@ -103,13 +103,13 @@ Warning: This function uses unknown addresses: kernel_atax
   Module allocation information for function __float_mule11m52b_1023nih:
     Number of complex operations: 4
     Number of complex operations: 4
-  Time to perform module allocation: 0.03 seconds
+  Time to perform module allocation: 0.01 seconds
 
 
   Module allocation information for function __float_adde11m52b_1023nih:
     Number of complex operations: 0
     Number of complex operations: 0
-  Time to perform module allocation: 0.05 seconds
+  Time to perform module allocation: 0.02 seconds
 
 
   Scheduling Information of function __float_mule11m52b_1023nih:
@@ -151,7 +151,7 @@ Warning: This function uses unknown addresses: kernel_atax
 
   Easy binding information for function __float_adde11m52b_1023nih:
     Bound operations:189/262
-  Time to perform easy binding: 0.00 seconds
+  Time to perform easy binding: 0.01 seconds
 
 
   Storage Value Information of function __float_mule11m52b_1023nih:
@@ -217,7 +217,7 @@ Warning: This function uses unknown addresses: kernel_atax
   Module allocation information for function kernel_atax:
     Number of complex operations: 43
     Number of complex operations: 43
-  Time to perform module allocation: 0.03 seconds
+  Time to perform module allocation: 0.02 seconds
 
 
   Scheduling Information of function kernel_atax:
@@ -230,7 +230,7 @@ Warning: This function uses unknown addresses: kernel_atax
   State Transition Graph Information of function kernel_atax:
     Number of states: 95
     Done port is registered
-  Time to perform creation of STG: 0.00 seconds
+  Time to perform creation of STG: 0.01 seconds
 
 
   Easy binding information for function kernel_atax:
@@ -242,20 +242,20 @@ Warning: This function uses unknown addresses: kernel_atax
     Number of storage values inserted: 77
   Time to compute storage value information: 0.00 seconds
 
-  Slack computed in 0.01 seconds
+  Slack computed in 0.00 seconds
   Weight computation completed in 0.00 seconds
   False-loop computation completed in 0.00 seconds
 
   Register binding information for function kernel_atax:
     Register allocation algorithm obtains a sub-optimal result: 52 registers(LB:20)
-  Time to perform register binding: 0.00 seconds
+  Time to perform register binding: 0.01 seconds
 
 
   Register binding information for function kernel_atax:
     Register allocation algorithm obtains a sub-optimal result: 52 registers(LB:20)
   Time to perform register binding: 0.01 seconds
 
-  Clique covering computation completed in 0.02 seconds
+  Clique covering computation completed in 0.03 seconds
 
   Module binding information for function kernel_atax:
     Number of modules instantiated: 312
@@ -264,16 +264,16 @@ Warning: This function uses unknown addresses: kernel_atax
     Estimated area of MUX21: 513
     Total estimated area: 6978
     Estimated number of DSPs: 0
-  Time to perform module binding: 0.03 seconds
+  Time to perform module binding: 0.04 seconds
 
 
   Register binding information for function kernel_atax:
     Register allocation algorithm obtains a sub-optimal result: 52 registers(LB:20)
-  Time to perform register binding: 0.01 seconds
+  Time to perform register binding: 0.00 seconds
 
 
   Connection Binding Information for function kernel_atax:
     Number of allocated multiplexers (2-to-1 equivalent): 49
-  Time to perform interconnection binding: 0.00 seconds
+  Time to perform interconnection binding: 0.01 seconds
 
   Total number of flip-flops in function kernel_atax: 1489
