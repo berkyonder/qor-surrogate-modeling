@@ -1,0 +1,6 @@
+benchmark,design_name,control_steps,min_slack,frequency_mhz,states,modules_instantiated,performance_conflicts,flipflops,area_est,mux_area,total_area,registers,dsps,log_file
+2mm,kernel_2mm,119,0.03639999699999841,100.3653297702541,117,444,208,1763,8161,347,8508,61,0,2mm_log.txt
+3mm,kernel_3mm,145,0.03639999699999841,100.3653297702541,143,686,880,2222,9950,477,10427,87,0,3mm_log.txt
+atax,kernel_atax,97,0.03639999699999841,100.3653297702541,95,312,70,1489,6465,513,6978,52,0,atax_log.txt
+bicg,kernel_bicg,42,0.03639999699999841,100.3653297702541,40,203,4,1017,5904,274,6178,32,0,bicg_log.txt
+gemm,kernel_gemm,99,0.03639999699999841,100.3653297702541,97,359,27,1675,6882,416,7298,61,0,gemm_log.txt
