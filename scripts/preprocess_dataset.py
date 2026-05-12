@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+"""
+preprocess_dataset.py
+
+Preprocessing and data-quality reporting for the Bambu early-HLS QoR dataset.
+
+Outputs:
+- data/processed/early_hls_metrics_clean.csv
+- data/processed/modeling_dataset.csv
+- reports/data_quality/*.csv
+- reports/data_quality/dataset_quality_summary.md
+"""
+
+from pathlib import Path
+import argparse
+
+import numpy as np
+import pandas as pd
+
+
+DEFAULT_INPUT = Path("data/extracted_metrics/early_hls_metrics_raw.csv")
+DEFAULT_OUTPUT_DIR = Path("data/processed")
+DEFAULT_REPORT_DIR = Path("reports/data_quality")
+
+ID_COLUMNS = ["design_name", "log_file"]
+
+CONSTANT_OR_UNUSED_COLUMNS = [
+    "dsps",                 # constant in current dataset
+    "experimental_setup",   # always none in current final dataset
+]
+
+CATEGORICAL_COLUMNS = [
+    "benchmark",
+    "dataset_size",
+    "mem_policy",
+    "opt_level",
+]
+
+NUMERIC_COLUMNS = [
+    "clock_period",
+    "dsp_coeff",
+    "control_steps",
+    "min_slack",
+    "frequency_mhz",
+    "states",
+    "modules_instantiated",
+    "performance_conflicts",
+    "flipflops",
+    "area_est",
+    "mux_area",
+    "total_area",
+    "registers",
+]
+
+
+def load_dataset(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(f"Dataset not found: {path}")
+
+    df = pd.read_csv(path)
+    df.columns = df.columns.str.strip()
+
+    for col in CATEGORICAL_COLUMNS + ID_COLUMNS + ["experimental_setup"]:
+        if col in df.columns:
+            df[col] = df[col].astype(str).str.strip()
+
+    for col in NUMERIC_COLUMNS + ["dsps"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    return df
+
+
+def make_missing_report(df: pd.DataFrame) -> pd.DataFrame:
+    return pd.DataFrame({
+        "column": df.columns,
+        "missing_count": df.isna().sum().values,
+        "missing_percent": df.isna().mean().values * 100,
+    }).sort_values("missing_count", ascending=False)
+
+
+def make_duplicate_report(df: pd.DataFrame) -> pd.DataFrame:
+    config_cols = [
+        "benchmark",
+        "dataset_size",
+        "clock_period",
+        "mem_policy",
+        "dsp_coeff",
+        "opt_level",
+    ]
+
+    metric_cols = [
+        "control_steps",
+        "min_slack",
+        "frequency_mhz",
+        "states",
+        "modules_instantiated",
+        "performance_conflicts",
+        "flipflops",
+        "area_est",
+        "mux_area",
+        "total_area",
+        "registers",
+        "dsps",
+    ]
+
+    config_cols = [c for c in config_cols if c in df.columns]
+    metric_cols = [c for c in metric_cols if c in df.columns]
+
+    report = {
+        "rows": len(df),
+        "columns": df.shape[1],
+        "full_duplicate_rows": int(df.duplicated().sum()),
+        "duplicate_configurations": int(df.duplicated(subset=config_cols).sum()),
+        "duplicate_metric_vectors": int(df.duplicated(subset=metric_cols).sum()),
+    }
+
+    return pd.DataFrame([report])
+
+
+def make_constant_column_report(df: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for col in df.columns:
+        rows.append({
+            "column": col,
+            "unique_values": df[col].nunique(dropna=False),
+            "is_constant": df[col].nunique(dropna=False) <= 1,
+        })
+
+    return pd.DataFrame(rows).sort_values(["is_constant", "unique_values"], ascending=[False, True])
+
+
+def make_outlier_report(df: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+
+    numeric_cols = df.select_dtypes(include=[np.number]).columns
+
+    for col in numeric_cols:
+        if df[col].nunique(dropna=True) <= 1:
+            continue
+
+        q1 = df[col].quantile(0.25)
+        q3 = df[col].quantile(0.75)
+        iqr = q3 - q1
+
+        lower = q1 - 1.5 * iqr
+        upper = q3 + 1.5 * iqr
+
+        mask = (df[col] < lower) | (df[col] > upper)
+
+        rows.append({
+            "column": col,
+            "q1": q1,
+            "q3": q3,
+            "iqr": iqr,
+            "lower_bound": lower,
+            "upper_bound": upper,
+            "outlier_count": int(mask.sum()),
+            "outlier_percent": mask.mean() * 100,
+        })
+
+    return pd.DataFrame(rows).sort_values("outlier_count", ascending=False)
+
+
+def make_group_summaries(df: pd.DataFrame, report_dir: Path) -> None:
+    group_cols = [
+        "benchmark",
+        "dataset_size",
+        "clock_period",
+        "mem_policy",
+        "dsp_coeff",
+        "opt_level",
+    ]
+
+    target_cols = [
+        "total_area",
+        "control_steps",
+        "frequency_mhz",
+        "registers",
+        "flipflops",
+        "modules_instantiated",
+        "performance_conflicts",
+    ]
+
+    target_cols = [c for c in target_cols if c in df.columns]
+
+    for col in group_cols:
+        if col not in df.columns:
+            continue
+
+        summary = df.groupby(col)[target_cols].agg(["mean", "std", "min", "max"])
+        summary.to_csv(report_dir / f"group_summary_by_{col}.csv")
+
+
+def make_correlation_reports(df: pd.DataFrame, report_dir: Path) -> None:
+    numeric_df = df.select_dtypes(include=[np.number])
+
+    corr = numeric_df.corr()
+    corr.to_csv(report_dir / "correlation_matrix.csv")
+
+    for target in ["total_area", "control_steps", "frequency_mhz"]:
+        if target in corr.columns:
+            target_corr = (
+                corr[target]
+                .dropna()
+                .sort_values(ascending=False)
+                .reset_index()
+            )
+            target_corr.columns = ["feature", f"correlation_with_{target}"]
+            target_corr.to_csv(report_dir / f"correlation_with_{target}.csv", index=False)
+
+
+def create_clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
+    clean = df.copy()
+
+    # Remove full duplicate rows only.
+    clean = clean.drop_duplicates().reset_index(drop=True)
+
+    # Drop metadata and useless columns.
+    drop_cols = ID_COLUMNS + CONSTANT_OR_UNUSED_COLUMNS
+    clean = clean.drop(columns=[c for c in drop_cols if c in clean.columns])
+
+    return clean
+
+
+def create_modeling_dataset(clean: pd.DataFrame) -> pd.DataFrame:
+    modeling = clean.copy()
+
+    categorical_existing = [c for c in CATEGORICAL_COLUMNS if c in modeling.columns]
+
+    modeling = pd.get_dummies(
+        modeling,
+        columns=categorical_existing,
+        drop_first=False,
+        dtype=int,
+    )
+
+    return modeling
+
+
+def write_summary(
+    df: pd.DataFrame,
+    clean: pd.DataFrame,
+    report_dir: Path,
+    missing_report: pd.DataFrame,
+    duplicate_report: pd.DataFrame,
+    constant_report: pd.DataFrame,
+    outlier_report: pd.DataFrame,
+) -> None:
+    lines = []
+
+    lines.append("# Dataset Quality Summary\n")
+
+    lines.append("## Raw Dataset")
+    lines.append(f"- Rows: {df.shape[0]}")
+    lines.append(f"- Columns: {df.shape[1]}\n")
+
+    lines.append("## Clean Dataset")
+    lines.append(f"- Rows: {clean.shape[0]}")
+    lines.append(f"- Columns: {clean.shape[1]}\n")
+
+    lines.append("## Missing Values")
+    lines.append(f"- Total missing values: {int(df.isna().sum().sum())}\n")
+
+    lines.append("## Duplicate Analysis")
+    for col, value in duplicate_report.iloc[0].items():
+        lines.append(f"- {col}: {value}")
+    lines.append("")
+
+    lines.append("## Constant Columns")
+    constants = constant_report[constant_report["is_constant"]]["column"].tolist()
+    if constants:
+        for col in constants:
+            lines.append(f"- {col}")
+    else:
+        lines.append("- No constant columns detected.")
+    lines.append("")
+
+    lines.append("## Main Targets")
+    for target in ["total_area", "control_steps", "frequency_mhz"]:
+        if target in df.columns:
+            lines.append(f"### {target}")
+            lines.append(str(df[target].describe()))
+            lines.append("")
+
+    lines.append("## Outlier Note")
+    lines.append(
+        "Outliers are reported but not automatically removed. In this project, "
+        "large values may represent valid high-complexity hardware designs rather than data errors."
+    )
+    lines.append("")
+
+    lines.append("## Modeling Note")
+    lines.append(
+        "The modeling dataset is one-hot encoded and ready for baseline regression models. "
+        "Targets should be selected in the training script, e.g., total_area or control_steps."
+    )
+
+    (report_dir / "dataset_quality_summary.md").write_text(
+        "\n".join(lines),
+        encoding="utf-8",
+    )
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT_DIR)
+    args = parser.parse_args()
+
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    args.report_dir.mkdir(parents=True, exist_ok=True)
+
+    df = load_dataset(args.input)
+
+    missing_report = make_missing_report(df)
+    duplicate_report = make_duplicate_report(df)
+    constant_report = make_constant_column_report(df)
+    outlier_report = make_outlier_report(df)
+
+    missing_report.to_csv(args.report_dir / "missing_values_report.csv", index=False)
+    duplicate_report.to_csv(args.report_dir / "duplicate_report.csv", index=False)
+    constant_report.to_csv(args.report_dir / "constant_columns_report.csv", index=False)
+    outlier_report.to_csv(args.report_dir / "outlier_report_iqr.csv", index=False)
+
+    make_group_summaries(df, args.report_dir)
+    make_correlation_reports(df, args.report_dir)
+
+    clean = create_clean_dataset(df)
+    modeling = create_modeling_dataset(clean)
+
+    clean.to_csv(args.output_dir / "early_hls_metrics_clean.csv", index=False)
+    modeling.to_csv(args.output_dir / "modeling_dataset.csv", index=False)
+
+    write_summary(
+        df=df,
+        clean=clean,
+        report_dir=args.report_dir,
+        missing_report=missing_report,
+        duplicate_report=duplicate_report,
+        constant_report=constant_report,
+        outlier_report=outlier_report,
+    )
+
+    print("\n=== Preprocessing complete ===")
+    print(f"Input dataset: {args.input}")
+    print(f"Clean dataset: {args.output_dir / 'early_hls_metrics_clean.csv'}")
+    print(f"Modeling dataset: {args.output_dir / 'modeling_dataset.csv'}")
+    print(f"Reports: {args.report_dir}")
+
+
+if __name__ == "__main__":
+    main()

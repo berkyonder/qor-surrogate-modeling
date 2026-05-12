@@ -63,3 +63,20 @@ print(df.groupby("mem_policy")["total_area"].mean())
 print("\n=== Mean control_steps by mem_policy ===")
 print(df.groupby("mem_policy")["control_steps"].mean())
 
+print("\n=== Mean total_area by dataset_size ===")
+print(df.groupby("dataset_size")["total_area"].mean())
+
+print("\n=== Mean control_steps by dataset_size ===")
+print(df.groupby("dataset_size")["control_steps"].mean())
+
+print("\n=== Mean total_area by clock_period ===")
+print(df.groupby("clock_period")["total_area"].mean())
+
+print("\n=== Mean control_steps by clock_period ===")
+print(df.groupby("clock_period")["control_steps"].mean())
+
+print("\n=== Mean total_area by dsp_coeff ===")
+print(df.groupby("dsp_coeff")["total_area"].mean())
+
+print("\n=== Mean control_steps by dsp_coeff ===")
+print(df.groupby("dsp_coeff")["control_steps"].mean())
