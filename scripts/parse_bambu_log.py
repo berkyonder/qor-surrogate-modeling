@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 CSV_FIELDS = [
-    "benchmark", "dataset_size", "design_name", "control_steps", "min_slack", "frequency_mhz",
+    "benchmark", "dataset_size", "clock_period", "mem_policy", "dsp_coeff", "opt_level", "experimental_setup", "design_name", "control_steps", "min_slack", "frequency_mhz",
     "states", "modules_instantiated", "performance_conflicts", "flipflops",
     "area_est", "mux_area", "total_area", "registers", "dsps", "log_file"
 ]
@@ -122,16 +122,49 @@ def parse_bambu_log(log_file_path):
     if design_match:
         metrics['design_name'] = design_match.group(1)
 
-    # Add benchmark and dataset size derived from the log filename
+    # Add benchmark, dataset size, and other parameters derived from the log filename
     filename = Path(log_file_path).stem
-    parts = filename.split("_")
 
-    if len(parts) >= 3:
-        metrics['benchmark'] = parts[0]
-        metrics['dataset_size'] = parts[1]
+    metrics["benchmark"] = "UNKNOWN"
+    metrics["dataset_size"] = "DEFAULT"
+    metrics["clock_period"] = "default"
+    metrics["mem_policy"] = "default"
+    metrics["dsp_coeff"] = "default"
+    metrics["opt_level"] = "default"
+    metrics["experimental_setup"] = "none"
+
+    pattern = (
+        r'(?P<benchmark>.+)_'
+        r'(?P<dataset_size>SMALL|MEDIUM|MINI|LARGE)_'
+        r'clk(?P<clock_period>\d+)_'
+        r'(?:mem(?P<mem_policy>[A-Z_]+)_)?'
+        r'(?:dsp(?P<dsp_coeff>[\d.]+)_)?'
+        r'(?:opt(?P<opt_level>O\d+)_)?'
+        r'(?:setup(?P<experimental_setup>[^_]+))?'
+    )
+
+    match = re.match(pattern, filename)
+
+    if match:
+        metrics.update({k: v for k, v in match.groupdict().items() if v is not None})
     else:
-        metrics['benchmark'] = filename.replace('_log', '')
-        metrics['dataset_size'] = "DEFAULT"
+        parts = filename.split("_")
+        if len(parts) >= 1:
+            metrics["benchmark"] = parts[0]
+        if len(parts) >= 2 and parts[1] in {"SMALL", "MEDIUM", "MINI", "LARGE"}:
+            metrics["dataset_size"] = parts[1]
+
+        for part in parts:
+            if part.startswith("clk"):
+                metrics["clock_period"] = part.replace("clk", "")
+            elif part.startswith("mem"):
+                metrics["mem_policy"] = part.replace("mem", "")
+            elif part.startswith("dsp"):
+                metrics["dsp_coeff"] = part.replace("dsp", "")
+            elif part.startswith("opt"):
+                metrics["opt_level"] = part.replace("opt", "")
+            elif part.startswith("setup"):
+                metrics["experimental_setup"] = part.replace("setup", "")
 
     # Add metadata
     metrics['log_file'] = str(Path(log_file_path).name)

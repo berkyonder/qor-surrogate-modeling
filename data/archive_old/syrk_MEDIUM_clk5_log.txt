@@ -1,0 +1,277 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_syrk -DMEDIUM_DATASET --clock-period=5 syrk.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_syrk
+    Parameter @428529 n
+    Interface specification:
+      Parameter : n
+      Protocol  : default
+      Direction : IN
+      Bundle    : n
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428530 m
+    Interface specification:
+      Parameter : m
+      Protocol  : default
+      Direction : IN
+      Bundle    : m
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428531 alpha
+    Interface specification:
+      Parameter : alpha
+      Protocol  : default
+      Direction : IN
+      Bundle    : alpha
+      Bitwidth  : 64
+      Alignment : 8
+    Parameter @428532 beta
+    Interface specification:
+      Parameter : beta
+      Protocol  : default
+      Direction : IN
+      Bundle    : beta
+      Bitwidth  : 64
+      Alignment : 8
+    Parameter @428533 C
+    Interface specification:
+      Parameter : C
+      Protocol  : default
+      Direction : IN
+      Bundle    : C
+      Bitwidth  : 32
+      Size      : 57600
+      Alignment : 4
+    Parameter @428534 A
+    Interface specification:
+      Parameter : A
+      Protocol  : default
+      Direction : IN
+      Bundle    : A
+      Bitwidth  : 32
+      Size      : 48000
+      Alignment : 4
+  Analyzed function kernel_syrk
+Removing2: switch ((unsigned char)  _10284_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Before2  : switch ((unsigned char)  _10284_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Required never inline for function kernel_syrk
+Constraining function __float_mule11m52b_1023nih with 1 resources
+Constraining function __float_adde11m52b_1023nih with 1 resources
+
+  Functions to be synthesized:
+    kernel_syrk
+    __float_mule11m52b_1023nih
+    __float_adde11m52b_1023nih
+
+  Upgraded function constraints for kernel_syrk with 1 resources of __float_mule11m52b_1023nih, before was INF
+  Upgraded function constraints for kernel_syrk with 1 resources of __float_adde11m52b_1023nih, before was INF
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_syrk
+    BRAM bitsize: 64
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 64
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 7
+    Code has LOADs or STOREs with unaligned accesses
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function __float_mule11m52b_1023nih:
+    Number of complex operations: 4
+    Number of complex operations: 4
+  Time to perform module allocation: 0.03 seconds
+
+
+  Module allocation information for function __float_adde11m52b_1023nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function __float_mule11m52b_1023nih:
+    Number of control steps: 12
+    Minimum slack: 0.43073333033334027
+    Estimated max frequency (MHz): 218.85349932376624
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function __float_mule11m52b_1023nih:
+    Number of states: 11
+    Minimum number of cycles: 11
+    Maximum number of cycles 11
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Scheduling Information of function __float_adde11m52b_1023nih:
+    Number of control steps: 11
+    Minimum slack: 0.014299992999998956
+    Estimated max frequency (MHz): 200.57364033054222
+  Time to perform scheduling: 0.03 seconds
+
+
+  State Transition Graph Information of function __float_adde11m52b_1023nih:
+    Number of states: 10
+    Minimum number of cycles: 10
+    Maximum number of cycles 10
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function __float_mule11m52b_1023nih:
+    Bound operations:57/107
+  Time to perform easy binding: 0.00 seconds
+
+
+  Easy binding information for function __float_adde11m52b_1023nih:
+    Bound operations:189/262
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function __float_mule11m52b_1023nih:
+    Number of storage values inserted: 31
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_adde11m52b_1023nih:
+    Number of storage values inserted: 111
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 31 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_mule11m52b_1023nih:
+    Number of modules instantiated: 107
+    Number of performance conflicts: 16
+    Estimated resources area (no Muxes and address logic): 1525
+    Estimated area of MUX21: 0
+    Total estimated area: 1525
+    Estimated number of DSPs: 12
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 31 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_mule11m52b_1023nih: 751
+  Slack computed in 0.01 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 111 registers(LB:69)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_adde11m52b_1023nih:
+    Number of modules instantiated: 262
+    Number of performance conflicts: 51
+    Estimated resources area (no Muxes and address logic): 3455
+    Estimated area of MUX21: 0
+    Total estimated area: 3455
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 111 registers(LB:69)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_adde11m52b_1023nih: 1175
+
+  Module allocation information for function kernel_syrk:
+    Number of complex operations: 36
+    Number of complex operations: 36
+  Time to perform module allocation: 0.02 seconds
+
+
+  Scheduling Information of function kernel_syrk:
+    Number of control steps: 47
+    Minimum slack: 8.8817841970012523e-16
+    Estimated max frequency (MHz): 200.00000000000003
+  Time to perform scheduling: 0.01 seconds
+
+
+  State Transition Graph Information of function kernel_syrk:
+    Number of states: 59
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function kernel_syrk:
+    Bound operations:213/365
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function kernel_syrk:
+    Number of storage values inserted: 88
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function kernel_syrk:
+    Register allocation algorithm obtains a sub-optimal result: 59 registers(LB:27)
+  Time to perform register binding: 0.00 seconds
+
+
+  Register binding information for function kernel_syrk:
+    Register allocation algorithm obtains a sub-optimal result: 59 registers(LB:27)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function kernel_syrk:
+    Number of modules instantiated: 332
+    Number of performance conflicts: 171
+    Estimated resources area (no Muxes and address logic): 6345
+    Estimated area of MUX21: 411
+    Total estimated area: 6756
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function kernel_syrk:
+    Register allocation algorithm obtains a sub-optimal result: 59 registers(LB:27)
+  Time to perform register binding: 0.00 seconds
+
+
+  Connection Binding Information for function kernel_syrk:
+    Number of allocated multiplexers (2-to-1 equivalent): 40
+  Time to perform interconnection binding: 0.00 seconds
+
+  Total number of flip-flops in function kernel_syrk: 1659

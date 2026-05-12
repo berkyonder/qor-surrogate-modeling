@@ -1,0 +1,116 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_floyd_warshall -DSMALL_DATASET --clock-period=10 --memory-allocation-policy=ALL_BRAM --DSP-allocation-coefficient=1.75 -O0 floyd-warshall.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_floyd_warshall
+    Parameter @428529 n
+    Interface specification:
+      Parameter : n
+      Protocol  : default
+      Direction : IN
+      Bundle    : n
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428530 path
+    Interface specification:
+      Parameter : path
+      Protocol  : default
+      Direction : IN
+      Bundle    : path
+      Bitwidth  : 32
+      Size      : 32400
+      Alignment : 4
+  Analyzed function kernel_floyd_warshall
+Required never inline for function kernel_floyd_warshall
+
+  Functions to be synthesized:
+    kernel_floyd_warshall
+
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_floyd_warshall
+    BRAM bitsize: 16
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 32
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 6
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function kernel_floyd_warshall:
+    Number of complex operations: 4
+    Number of complex operations: 4
+  Time to perform module allocation: 0.01 seconds
+
+
+  Scheduling Information of function kernel_floyd_warshall:
+    Number of control steps: 13
+    Minimum slack: 0.6331999940000177
+    Estimated max frequency (MHz): 106.76004605195388
+  Time to perform scheduling: 0.00 seconds
+
+
+  State Transition Graph Information of function kernel_floyd_warshall:
+    Number of states: 11
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function kernel_floyd_warshall:
+    Bound operations:59/97
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function kernel_floyd_warshall:
+    Number of storage values inserted: 18
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function kernel_floyd_warshall:
+    Register allocation algorithm obtains a sub-optimal result: 15 registers(LB:13)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function kernel_floyd_warshall:
+    Number of modules instantiated: 95
+    Number of performance conflicts: 5
+    Estimated resources area (no Muxes and address logic): 1050
+    Estimated area of MUX21: 68
+    Total estimated area: 1118
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function kernel_floyd_warshall:
+    Register allocation algorithm obtains a sub-optimal result: 15 registers(LB:13)
+  Time to perform register binding: 0.01 seconds
+
+
+  Connection Binding Information for function kernel_floyd_warshall:
+    Number of allocated multiplexers (2-to-1 equivalent): 5
+  Time to perform interconnection binding: 0.00 seconds
+
+  Total number of flip-flops in function kernel_floyd_warshall: 441

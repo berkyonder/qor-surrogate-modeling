@@ -1,0 +1,373 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_deriche -DMEDIUM_DATASET --clock-period=15 --memory-allocation-policy=LSS --DSP-allocation-coefficient=1.0 -O0 deriche.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_deriche
+    Parameter @428531 w
+    Interface specification:
+      Parameter : w
+      Protocol  : default
+      Direction : IN
+      Bundle    : w
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428532 h
+    Interface specification:
+      Parameter : h
+      Protocol  : default
+      Direction : IN
+      Bundle    : h
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428533 alpha
+    Interface specification:
+      Parameter : alpha
+      Protocol  : default
+      Direction : IN
+      Bundle    : alpha
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428534 imgIn
+    Interface specification:
+      Parameter : imgIn
+      Protocol  : default
+      Direction : IN
+      Bundle    : imgIn
+      Bitwidth  : 32
+      Size      : 345600
+      Alignment : 4
+    Parameter @428535 imgOut
+    Interface specification:
+      Parameter : imgOut
+      Protocol  : default
+      Direction : IN
+      Bundle    : imgOut
+      Bitwidth  : 32
+      Size      : 345600
+      Alignment : 4
+    Parameter @428536 y1
+    Interface specification:
+      Parameter : y1
+      Protocol  : default
+      Direction : IN
+      Bundle    : y1
+      Bitwidth  : 32
+      Size      : 345600
+      Alignment : 4
+    Parameter @428537 y2
+    Interface specification:
+      Parameter : y2
+      Protocol  : default
+      Direction : IN
+      Bundle    : y2
+      Bitwidth  : 32
+      Size      : 345600
+      Alignment : 4
+  Analyzed function kernel_deriche
+Removing2: switch ((unsigned char)  _10417_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Before2  : switch ((unsigned char)  _10417_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Removing2: switch ((unsigned int)  _12045_[608]) <case 1unsigned int: , case 7unsigned int: , case 2unsigned int: , case 6unsigned int: , case 3unsigned int: , case 5unsigned int: , default: >
+Before2  : switch ((unsigned int)  _12045_[608]) <case 1unsigned int: , case 7unsigned int: , case 2unsigned int: , case 6unsigned int: , case 3unsigned int: , case 5unsigned int: , default: >
+Removing2: switch ((unsigned char)  _12048_[729]) <case 1unsigned char: , case 0unsigned char: , case 3unsigned char: , default: >
+Before2  : switch ((unsigned char)  _12048_[729]) <case 1unsigned char: , case 0unsigned char: , case 3unsigned char: , default: >
+Required never inline for function kernel_deriche
+Constraining function exp2f with 1 resources
+Constraining function expf with 1 resources
+Constraining function __float_mule8m23b_127nih with 1 resources
+Constraining function __float_adde8m23b_127nih with 1 resources
+Constraining function __float_sube8m23b_127nih with 1 resources
+Constraining function __float_divSRT4e8m23b_127nih with 1 resources
+
+  Functions to be synthesized:
+    kernel_deriche
+    __float_mule8m23b_127nih
+    __float_adde8m23b_127nih
+    __float_sube8m23b_127nih
+    __float_divSRT4e8m23b_127nih
+
+  Upgraded function constraints for kernel_deriche with 1 resources of expf, before was INF
+  Upgraded function constraints for kernel_deriche with 1 resources of exp2f, before was INF
+  Upgraded function constraints for kernel_deriche with 1 resources of __float_mule8m23b_127nih, before was INF
+  Upgraded function constraints for kernel_deriche with 1 resources of __float_adde8m23b_127nih, before was INF
+  Upgraded function constraints for kernel_deriche with 1 resources of __float_sube8m23b_127nih, before was INF
+  Upgraded function constraints for kernel_deriche with 1 resources of __float_divSRT4e8m23b_127nih, before was INF
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_deriche
+    BRAM bitsize: 16
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 32
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 6
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function __float_mule8m23b_127nih:
+    Number of complex operations: 1
+    Number of complex operations: 1
+  Time to perform module allocation: 0.01 seconds
+
+
+  Module allocation information for function __float_adde8m23b_127nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.03 seconds
+
+
+  Module allocation information for function __float_sube8m23b_127nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.02 seconds
+
+
+  Module allocation information for function __float_divSRT4e8m23b_127nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function __float_mule8m23b_127nih:
+    Number of control steps: 4
+    Minimum slack: 1.5377333193333325
+    Estimated max frequency (MHz): 74.281695922434281
+  Time to perform scheduling: 0.00 seconds
+
+
+  State Transition Graph Information of function __float_mule8m23b_127nih:
+    Number of states: 3
+    Minimum number of cycles: 3
+    Maximum number of cycles 3
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Scheduling Information of function __float_adde8m23b_127nih:
+    Number of control steps: 4
+    Minimum slack: 0.45940297500000504
+    Estimated max frequency (MHz): 68.77296704397186
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function __float_adde8m23b_127nih:
+    Number of states: 3
+    Minimum number of cycles: 3
+    Maximum number of cycles 3
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Scheduling Information of function __float_sube8m23b_127nih:
+    Number of control steps: 4
+    Minimum slack: 0.45940297500000504
+    Estimated max frequency (MHz): 68.77296704397186
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function __float_sube8m23b_127nih:
+    Number of states: 3
+    Minimum number of cycles: 3
+    Maximum number of cycles 3
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.01 seconds
+
+
+  Scheduling Information of function __float_divSRT4e8m23b_127nih:
+    Number of control steps: 5
+    Minimum slack: 3.1211333143333935
+    Estimated max frequency (MHz): 84.183114977342896
+  Time to perform scheduling: 0.01 seconds
+
+
+  State Transition Graph Information of function __float_divSRT4e8m23b_127nih:
+    Number of states: 3
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function __float_mule8m23b_127nih:
+    Bound operations:85/104
+  Time to perform easy binding: 0.00 seconds
+
+
+  Easy binding information for function __float_adde8m23b_127nih:
+    Bound operations:192/257
+  Time to perform easy binding: 0.00 seconds
+
+
+  Easy binding information for function __float_sube8m23b_127nih:
+    Bound operations:191/256
+  Time to perform easy binding: 0.01 seconds
+
+
+  Easy binding information for function __float_divSRT4e8m23b_127nih:
+    Bound operations:137/220
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function __float_mule8m23b_127nih:
+    Number of storage values inserted: 8
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_adde8m23b_127nih:
+    Number of storage values inserted: 51
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_sube8m23b_127nih:
+    Number of storage values inserted: 51
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_divSRT4e8m23b_127nih:
+    Number of storage values inserted: 21
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_mule8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 8 registers
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_mule8m23b_127nih:
+    Number of modules instantiated: 104
+    Number of performance conflicts: 0
+    Estimated resources area (no Muxes and address logic): 1100
+    Estimated area of MUX21: 0
+    Total estimated area: 1100
+    Estimated number of DSPs: 3
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function __float_mule8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 8 registers
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_mule8m23b_127nih: 102
+  All registers are without enable: function pipelining may come for free
+  Resources are not shared in function __float_mule8m23b_127nih: function pipelining may come for free
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_adde8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 51 registers
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_adde8m23b_127nih:
+    Number of modules instantiated: 257
+    Number of performance conflicts: 20
+    Estimated resources area (no Muxes and address logic): 2745
+    Estimated area of MUX21: 0
+    Total estimated area: 2745
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function __float_adde8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 51 registers
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_adde8m23b_127nih: 163
+  All registers are without enable: function pipelining may come for free
+  Resources are not shared in function __float_adde8m23b_127nih: function pipelining may come for free
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_sube8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 51 registers
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_sube8m23b_127nih:
+    Number of modules instantiated: 256
+    Number of performance conflicts: 20
+    Estimated resources area (no Muxes and address logic): 2740
+    Estimated area of MUX21: 0
+    Total estimated area: 2740
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function __float_sube8m23b_127nih:
+    Register allocation algorithm obtains an optimal result: 51 registers
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_sube8m23b_127nih: 163
+  All registers are without enable: function pipelining may come for free
+  Resources are not shared in function __float_sube8m23b_127nih: function pipelining may come for free
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_divSRT4e8m23b_127nih:
+    Register allocation algorithm obtains a sub-optimal result: 18 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_divSRT4e8m23b_127nih:
+    Number of modules instantiated: 220
+    Number of performance conflicts: 9
+    Estimated resources area (no Muxes and address logic): 1943
+    Estimated area of MUX21: 0
+    Total estimated area: 1943
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function __float_divSRT4e8m23b_127nih:
+    Register allocation algorithm obtains a sub-optimal result: 18 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+
+  Connection Binding Information for function __float_divSRT4e8m23b_127nih:
+    Number of allocated multiplexers (2-to-1 equivalent): 4
+  Time to perform interconnection binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_divSRT4e8m23b_127nih: 521
+
+  Module allocation information for function kernel_deriche:
+    Operation for which does not exist a functional unit in the resource library: exp2f in vertex: kernel_deriche_428530_428606 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428594 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428616 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428620 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428624 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428628 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428636 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428640 with vertex type: REAL and vertex prec: 32 32
+    Operation for which does not exist a functional unit in the resource library: expf in vertex: kernel_deriche_428530_428644 with vertex type: REAL and vertex prec: 32 32
+error -> Vertices not completely allocated
+
+Please report bugs to <panda-info@polimi.it>
+

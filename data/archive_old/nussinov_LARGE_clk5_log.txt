@@ -1,0 +1,125 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_nussinov -DLARGE_DATASET --clock-period=5 nussinov.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_nussinov
+    Parameter @428529 n
+    Interface specification:
+      Parameter : n
+      Protocol  : default
+      Direction : IN
+      Bundle    : n
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428530 seq
+    Interface specification:
+      Parameter : seq
+      Protocol  : default
+      Direction : IN
+      Bundle    : seq
+      Bitwidth  : 32
+      Size      : 2500
+      Alignment : 4
+    Parameter @428531 table
+    Interface specification:
+      Parameter : table
+      Protocol  : default
+      Direction : IN
+      Bundle    : table
+      Bitwidth  : 32
+      Size      : 6250000
+      Alignment : 4
+  Analyzed function kernel_nussinov
+Required never inline for function kernel_nussinov
+
+  Functions to be synthesized:
+    kernel_nussinov
+
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_nussinov
+    BRAM bitsize: 16
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 32
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 6
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function kernel_nussinov:
+    Number of complex operations: 20
+    Number of complex operations: 20
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function kernel_nussinov:
+    Number of control steps: 53
+    Minimum slack: 0.14839999500007028
+    Estimated max frequency (MHz): 206.11756924920164
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function kernel_nussinov:
+    Number of states: 51
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function kernel_nussinov:
+    Bound operations:101/267
+  Time to perform easy binding: 0.01 seconds
+
+
+  Storage Value Information of function kernel_nussinov:
+    Number of storage values inserted: 105
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function kernel_nussinov:
+    Register allocation algorithm obtains a sub-optimal result: 95 registers(LB:38)
+  Time to perform register binding: 0.01 seconds
+
+  Clique covering computation completed in 0.01 seconds
+
+  Module binding information for function kernel_nussinov:
+    Number of modules instantiated: 248
+    Number of performance conflicts: 368
+    Estimated resources area (no Muxes and address logic): 2089
+    Estimated area of MUX21: 210
+    Total estimated area: 2299
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function kernel_nussinov:
+    Register allocation algorithm obtains a sub-optimal result: 95 registers(LB:38)
+  Time to perform register binding: 0.00 seconds
+
+
+  Connection Binding Information for function kernel_nussinov:
+    Number of allocated multiplexers (2-to-1 equivalent): 26
+  Time to perform interconnection binding: 0.01 seconds
+
+  Total number of flip-flops in function kernel_nussinov: 2309

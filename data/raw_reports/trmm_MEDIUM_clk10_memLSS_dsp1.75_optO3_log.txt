@@ -1,0 +1,269 @@
+ ==  Bambu executed with: bambu -I/media/sf_qor_project/workspace/PandA-bambu/examples/PolyBench/PolyBenchC/utilities --top-fname=kernel_trmm -DMEDIUM_DATASET --clock-period=10 --memory-allocation-policy=LSS --DSP-allocation-coefficient=1.75 -O3 trmm.c 
+
+
+********************************************************************************
+                    ____                  _
+                   | __ )  __ _ _ __ ___ | |_   _   _
+                   |  _ \ / _` | '_ ` _ \| '_ \| | | |
+                   | |_) | (_| | | | | | | |_) | |_| |
+                   |____/ \__,_|_| |_| |_|_.__/ \__,_|
+
+********************************************************************************
+                         High-Level Synthesis Tool
+
+                         Politecnico di Milano - DEIB
+                          System Architectures Group
+********************************************************************************
+                Copyright (C) 2004-2024 Politecnico di Milano
+ Version: PandA 2024.10 - Revision c2ba6936ca2ed63137095fea0b630a1c66e20e63-main
+
+  Analyzing function kernel_trmm
+    Parameter @428529 m
+    Interface specification:
+      Parameter : m
+      Protocol  : default
+      Direction : IN
+      Bundle    : m
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428530 n
+    Interface specification:
+      Parameter : n
+      Protocol  : default
+      Direction : IN
+      Bundle    : n
+      Bitwidth  : 32
+      Alignment : 4
+    Parameter @428531 alpha
+    Interface specification:
+      Parameter : alpha
+      Protocol  : default
+      Direction : IN
+      Bundle    : alpha
+      Bitwidth  : 64
+      Alignment : 8
+    Parameter @428532 A
+    Interface specification:
+      Parameter : A
+      Protocol  : default
+      Direction : IN
+      Bundle    : A
+      Bitwidth  : 32
+      Size      : 40000
+      Alignment : 4
+    Parameter @428533 B
+    Interface specification:
+      Parameter : B
+      Protocol  : default
+      Direction : IN
+      Bundle    : B
+      Bitwidth  : 32
+      Size      : 48000
+      Alignment : 4
+  Analyzed function kernel_trmm
+Removing2: switch ((unsigned char)  _10287_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Before2  : switch ((unsigned char)  _10287_[319]) <case 1unsigned char: , case 0unsigned char: , default: >
+Required never inline for function kernel_trmm
+Constraining function __float_mule11m52b_1023nih with 1 resources
+Constraining function __float_adde11m52b_1023nih with 1 resources
+
+  Functions to be synthesized:
+    kernel_trmm
+    __float_mule11m52b_1023nih
+    __float_adde11m52b_1023nih
+
+  Upgraded function constraints for kernel_trmm with 1 resources of __float_mule11m52b_1023nih, before was INF
+  Upgraded function constraints for kernel_trmm with 1 resources of __float_adde11m52b_1023nih, before was INF
+
+  Memory allocation information:
+Warning: This function uses unknown addresses: kernel_trmm
+    BRAM bitsize: 64
+    Spec may not exploit DATA bus width
+    Spec accesses data having an address unknown at compile time
+    Internal data is not externally accessible
+    DATA bus bitsize: 64
+    ADDRESS bus bitsize: 32
+    SIZE bus bitsize: 7
+    Code has LOADs or STOREs with unaligned accesses
+    Internally allocated memory (no private memories): 0
+    Internally allocated memory: 0
+  Time to perform memory allocation: 0.00 seconds
+
+
+  Module allocation information for function __float_mule11m52b_1023nih:
+    Number of complex operations: 4
+    Number of complex operations: 4
+  Time to perform module allocation: 0.02 seconds
+
+
+  Module allocation information for function __float_adde11m52b_1023nih:
+    Number of complex operations: 0
+    Number of complex operations: 0
+  Time to perform module allocation: 0.04 seconds
+
+
+  Scheduling Information of function __float_mule11m52b_1023nih:
+    Number of control steps: 8
+    Minimum slack: 0.017066660666687383
+    Estimated max frequency (MHz): 100.17095837552519
+  Time to perform scheduling: 0.01 seconds
+
+
+  State Transition Graph Information of function __float_mule11m52b_1023nih:
+    Number of states: 7
+    Minimum number of cycles: 7
+    Maximum number of cycles 7
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Scheduling Information of function __float_adde11m52b_1023nih:
+    Number of control steps: 6
+    Minimum slack: 0.03639999700000196
+    Estimated max frequency (MHz): 100.36532977025415
+  Time to perform scheduling: 0.02 seconds
+
+
+  State Transition Graph Information of function __float_adde11m52b_1023nih:
+    Number of states: 5
+    Minimum number of cycles: 5
+    Maximum number of cycles 5
+    Parameters are registered
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function __float_mule11m52b_1023nih:
+    Bound operations:57/107
+  Time to perform easy binding: 0.01 seconds
+
+
+  Easy binding information for function __float_adde11m52b_1023nih:
+    Bound operations:189/262
+  Time to perform easy binding: 0.00 seconds
+
+
+  Storage Value Information of function __float_mule11m52b_1023nih:
+    Number of storage values inserted: 21
+  Time to compute storage value information: 0.00 seconds
+
+
+  Storage Value Information of function __float_adde11m52b_1023nih:
+    Number of storage values inserted: 28
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 21 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_mule11m52b_1023nih:
+    Number of modules instantiated: 107
+    Number of performance conflicts: 18
+    Estimated resources area (no Muxes and address logic): 1525
+    Estimated area of MUX21: 0
+    Total estimated area: 1525
+    Estimated number of DSPs: 12
+  Time to perform module binding: 0.00 seconds
+
+
+  Register binding information for function __float_mule11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 21 registers(LB:12)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_mule11m52b_1023nih: 567
+  Slack computed in 0.01 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 28 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.00 seconds
+
+  Module binding information for function __float_adde11m52b_1023nih:
+    Number of modules instantiated: 262
+    Number of performance conflicts: 39
+    Estimated resources area (no Muxes and address logic): 3455
+    Estimated area of MUX21: 0
+    Total estimated area: 3455
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function __float_adde11m52b_1023nih:
+    Register allocation algorithm obtains a sub-optimal result: 28 registers(LB:17)
+  Time to perform register binding: 0.00 seconds
+
+  Total number of flip-flops in function __float_adde11m52b_1023nih: 444
+
+  Module allocation information for function kernel_trmm:
+    Number of complex operations: 33
+    Number of complex operations: 33
+  Time to perform module allocation: 0.03 seconds
+
+
+  Scheduling Information of function kernel_trmm:
+    Number of control steps: 110
+    Minimum slack: 0.017066660666680278
+    Estimated max frequency (MHz): 100.17095837552512
+  Time to perform scheduling: 0.03 seconds
+
+
+  State Transition Graph Information of function kernel_trmm:
+    Number of states: 125
+    Done port is registered
+  Time to perform creation of STG: 0.00 seconds
+
+
+  Easy binding information for function kernel_trmm:
+    Bound operations:206/355
+  Time to perform easy binding: 0.01 seconds
+
+
+  Storage Value Information of function kernel_trmm:
+    Number of storage values inserted: 82
+  Time to compute storage value information: 0.00 seconds
+
+  Slack computed in 0.00 seconds
+  Weight computation completed in 0.00 seconds
+  False-loop computation completed in 0.00 seconds
+
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 56 registers(LB:27)
+  Time to perform register binding: 0.01 seconds
+
+
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 56 registers(LB:27)
+  Time to perform register binding: 0.00 seconds
+
+  Clique covering computation completed in 0.01 seconds
+
+  Module binding information for function kernel_trmm:
+    Number of modules instantiated: 326
+    Number of performance conflicts: 76
+    Estimated resources area (no Muxes and address logic): 6785
+    Estimated area of MUX21: 409
+    Total estimated area: 7194
+    Estimated number of DSPs: 0
+  Time to perform module binding: 0.01 seconds
+
+
+  Register binding information for function kernel_trmm:
+    Register allocation algorithm obtains a sub-optimal result: 56 registers(LB:27)
+  Time to perform register binding: 0.01 seconds
+
+
+  Connection Binding Information for function kernel_trmm:
+    Number of allocated multiplexers (2-to-1 equivalent): 44
+  Time to perform interconnection binding: 0.00 seconds
+
+  Total number of flip-flops in function kernel_trmm: 1704
