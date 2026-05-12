@@ -19,6 +19,7 @@ import pandas as pd
 
 
 DEFAULT_INPUT = Path("data/extracted_metrics/early_hls_metrics_raw.csv")
+STATIC_FEATURES_PATH = Path("data/extracted_metrics/static_code_features.csv")
 DEFAULT_OUTPUT_DIR = Path("data/processed")
 DEFAULT_REPORT_DIR = Path("reports/data_quality")
 
@@ -313,6 +314,22 @@ def main() -> None:
     args.report_dir.mkdir(parents=True, exist_ok=True)
 
     df = load_dataset(args.input)
+
+    if STATIC_FEATURES_PATH.exists():
+        static_df = pd.read_csv(STATIC_FEATURES_PATH)
+
+        # source_file is metadata, not useful for modeling.
+        if "source_file" in static_df.columns:
+            static_df = static_df.drop(columns=["source_file"])
+
+        df = df.merge(static_df, on="benchmark", how="left")
+
+        print("\n=== Static features merged ===")
+        print(f"Static feature file: {STATIC_FEATURES_PATH}")
+        print(f"Dataset shape after merge: {df.shape}")
+    else:
+        print("\n=== Static features not found ===")
+        print(f"Skipping static merge: {STATIC_FEATURES_PATH}")
 
     missing_report = make_missing_report(df)
     duplicate_report = make_duplicate_report(df)

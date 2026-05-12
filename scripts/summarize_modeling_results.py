@@ -99,9 +99,9 @@ def display_lobo():
 
 
 def display_best_models():
-    """Display best performing models by target and evaluation method."""
+    """Display best full-feature and no-leakage models by target and evaluation method."""
     print("\n" + "=" * 100)
-    print("BEST MODELS BY TARGET & EVALUATION METHOD")
+    print("BEST MODELS BY TARGET, FEATURE MODE & EVALUATION METHOD")
     print("=" * 100)
 
     all_results = pd.read_csv(RESULTS_DIR / "all_model_results.csv")
@@ -111,43 +111,52 @@ def display_best_models():
         subset = all_results[all_results["evaluation"] == eval_method]
 
         for target in subset["target"].unique():
-            target_subset = subset[subset["target"] == target].copy()
-
-            # Random split uses r2. K-fold and LOBO use r2_mean.
-            if eval_method == "random_split":
-                score_col = "r2"
-                mae_col = "mae"
-                rmse_col = "rmse"
-                std_suffix = False
-            else:
-                score_col = "r2_mean"
-                mae_col = "mae_mean"
-                rmse_col = "rmse_mean"
-                std_suffix = True
-
-            # Drop rows where score is missing.
-            target_subset = target_subset.dropna(subset=[score_col])
-
-            if target_subset.empty:
-                print(f"\n  Target: {target}")
-                print("    No valid rows found.")
-                continue
-
-            best_idx = target_subset[score_col].idxmax()
-            best_row = target_subset.loc[best_idx]
-
             print(f"\n  Target: {target}")
-            print(f"    Feature Mode: {best_row['feature_mode']}")
-            print(f"    Model: {best_row['model']}")
 
-            if std_suffix:
-                print(f"    R²: {best_row['r2_mean']:.6f} ± {best_row['r2_std']:.6f}")
-                print(f"    MAE: {best_row['mae_mean']:.4f} ± {best_row['mae_std']:.4f}")
-                print(f"    RMSE: {best_row['rmse_mean']:.4f} ± {best_row['rmse_std']:.4f}")
-            else:
-                print(f"    R²: {best_row['r2']:.6f}")
-                print(f"    MAE: {best_row['mae']:.4f}")
-                print(f"    RMSE: {best_row['rmse']:.4f}")
+            for feature_mode in ["full", "no_leakage"]:
+                mode_subset = subset[
+                    (subset["target"] == target)
+                    & (subset["feature_mode"] == feature_mode)
+                ].copy()
+
+                if mode_subset.empty:
+                    print(f"    Feature Mode: {feature_mode}")
+                    print("      No rows found.")
+                    continue
+
+                # Random split uses r2. K-fold and LOBO use r2_mean.
+                if eval_method == "random_split":
+                    score_col = "r2"
+                    mae_col = "mae"
+                    rmse_col = "rmse"
+                    has_std = False
+                else:
+                    score_col = "r2_mean"
+                    mae_col = "mae_mean"
+                    rmse_col = "rmse_mean"
+                    has_std = True
+
+                mode_subset = mode_subset.dropna(subset=[score_col])
+
+                if mode_subset.empty:
+                    print(f"    Feature Mode: {feature_mode}")
+                    print("      No valid score rows found.")
+                    continue
+
+                best_idx = mode_subset[score_col].idxmax()
+                best_row = mode_subset.loc[best_idx]
+
+                print(f"    Feature Mode: {feature_mode}")
+                print(f"      Model: {best_row['model']}")
+
+                if has_std:
+                    print(f"      R²: {best_row['r2_mean']:.6f} ± {best_row['r2_std']:.6f}")
+                    print(f"      MAE: {best_row['mae_mean']:.4f} ± {best_row['mae_std']:.4f}")
+                    print(f"      RMSE: {best_row['rmse_mean']:.4f} ± {best_row['rmse_std']:.4f}")
+                else:
+                    print(f"      R²: {best_row['r2']:.6f}")
+                    print(f"      MAE: {best_row['mae']:.4f}")
+                    print(f"      RMSE: {best_row['rmse']:.4f}")
 
 
 def main():

@@ -2,18 +2,18 @@
 
 ## Raw Dataset
 - Rows: 864
-- Columns: 21
+- Columns: 36
 
 ## Clean Dataset
 - Rows: 864
-- Columns: 17
+- Columns: 32
 
 ## Missing Values
 - Total missing values: 0
 
 ## Duplicate Analysis
 - rows: 864
-- columns: 21
+- columns: 36
 - full_duplicate_rows: 0
 - duplicate_configurations: 0
 - duplicate_metric_vectors: 360
@@ -21,6 +21,7 @@
 ## Constant Columns
 - experimental_setup
 - dsps
+- num_while_loops
 
 ## Main Targets
 ### total_area
