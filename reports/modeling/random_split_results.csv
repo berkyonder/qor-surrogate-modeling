@@ -1,0 +1,13 @@
+evaluation,target,feature_mode,model,mae,rmse,r2
+random_split,total_area,full,linear_regression,1.8308180918637123e-12,2.748725888972723e-12,1.0
+random_split,total_area,full,random_forest,10.536098265896014,21.49020892463075,0.9998938456838761
+random_split,total_area,full,gradient_boosting,14.182292225156791,18.93426800507599,0.9999175950269669
+random_split,total_area,no_leakage,linear_regression,72.24542607585275,99.86982305353501,0.9977074176618534
+random_split,total_area,no_leakage,random_forest,25.402341040462414,45.50558315329431,0.9995240232383309
+random_split,total_area,no_leakage,gradient_boosting,48.9455536523846,66.98376143883985,0.9989686752398739
+random_split,control_steps,full,linear_regression,3.097480644467211,4.149908988385972,0.992983055603775
+random_split,control_steps,full,random_forest,1.0991040462427746,3.0652562859026813,0.9961717131297897
+random_split,control_steps,full,gradient_boosting,1.2755199484750812,1.7976959031569808,0.9986832499368178
+random_split,control_steps,no_leakage,linear_regression,11.901461178542014,15.859016209634051,0.8975237141395603
+random_split,control_steps,no_leakage,random_forest,1.943150289017341,3.8500209255493183,0.9939605544457074
+random_split,control_steps,no_leakage,gradient_boosting,3.430912321783316,4.81331894087058,0.9905602570072948
