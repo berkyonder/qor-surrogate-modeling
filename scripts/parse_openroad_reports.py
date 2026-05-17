@@ -426,12 +426,10 @@ def create_openroad_modeling_dataset(clean: pd.DataFrame) -> pd.DataFrame:
 
     # OpenROAD status/config metadata should not be model features.
     drop_cols = [
-    "config_name",
-    "config_parse_status",
-    "openroad_run_status",
-    "openroad_parse_status",
-    "yosys_selected_module",
-    "yosys_report_file",
+        "config_name",
+        "config_parse_status",
+        "openroad_run_status",
+        "openroad_parse_status",
     ]
     openroad_df = openroad_df.drop(columns=[c for c in drop_cols if c in openroad_df.columns])
 
