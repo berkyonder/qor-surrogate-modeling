@@ -51,7 +51,7 @@ The final surrogate model uses early-stage features available before the expensi
 | Static source-code features | loop counts, source lines, arithmetic operation counts, array accesses |
 | Bambu/HLS metrics | `control_steps`, `states`, `area_est`, `mux_area`, `registers`, `flipflops` |
 | Yosys synthesis metrics | cell counts, wire counts, wire bits, module counts |
-| Engineered ratio features | compute-to-memory ratio, wire bits per cell, mux-area share, FFs per cell |
+| Derived feature-engineering inputs | optional ratios computed only from pre-OpenROAD code/HLS/Yosys features |
 
 ### Target Labels
 
@@ -75,7 +75,7 @@ Additional physical/timing closure metrics are parsed for analysis.
 | `openroad_max_slew_violation_count` | Number of max slew violations |
 | `openroad_max_cap_violation_count` | Number of max capacitance violations |
 
-These metrics address backend physical/timing closure effects. Explicit routed wirelength and congestion extraction are left as future extensions from DEF/routing reports.
+These metrics address backend physical/timing closure effects. The flow also extracts approximate routed wirelength from final DEF files, route-guide indicators, and route-DRC indicators from OpenROAD routing reports.
 
 ## Dataset Overview
 
@@ -119,7 +119,7 @@ The power target is highly skewed due to the aggressive-clock outlier. For this 
 
 The main reported results use direct OpenROAD targets, not normalized target ratios.
 
-The most relevant evaluation is group-aware validation by benchmark, because it tests generalization to unseen benchmarks. Since group folds are small, MAE and relative MAE are emphasized over R².
+The most relevant evaluation is group-aware validation by benchmark, because it tests generalization to unseen benchmarks. Since group folds are small, MAE and relative MAE are emphasized over R2.
 
 | Target | Evaluation | MAE | Relative MAE | Interpretation |
 |---|---|---:|---:|---|
@@ -168,7 +168,7 @@ The main direct-target experiments use:
 - PLS Regression
 - Gaussian Process Regression
 - Robust feature selection
-- Ratio features
+- Optional derived ratios from pre-OpenROAD features
 - Group-aware validation
 
 ### 4) EDA-Aware Exploratory Models
@@ -191,7 +191,7 @@ The ablation study compares feature groups.
 | `hls_only` | Bambu/HLS metrics only |
 | `yosys_only` | Yosys synthesis statistics only |
 | `hls_plus_yosys` | Combined HLS and synthesis features |
-| `ratios_only` | Engineered structural ratios |
+| `ratios_only` | Derived ratios from pre-OpenROAD features |
 | `all_direct_features` | All valid pre-OpenROAD features |
 
 Ablation results suggest:
@@ -256,6 +256,9 @@ Get-ChildItem data/raw_reports/*_clk*_mem*_dsp*_opt*_log.txt | ForEach-Object {
 | `reports/modeling/final_openroad_modeling_summary.md` | Final consolidated modeling summary |
 | `reports/modeling/openroad_target_distribution_summary.md` | Target distribution and scale summary |
 | `reports/modeling/openroad_physical_effects_summary.md` | Physical/timing closure effect summary |
+| `data/extracted_metrics/openroad_physical_metrics.csv` | Parsed DEF wirelength, route-guide, and route-DRC physical metrics |
+| `reports/modeling/openroad_wirelength_drc_summary.md` | Summary of routed wirelength and route-DRC indicators |
+| `reports/modeling/openroad_physical_correlation_summary.md` | Correlation analysis between physical effects and final QoR |
 | `reports/modeling/final_plots/` | Final target distribution plots |
 
 ## Physical Effects Summary
@@ -282,7 +285,18 @@ Current OpenROAD physical-effect summary:
 | Max slew violations | 0 | 0 |
 | Max capacitance violations | 3 | 2 |
 
-Future work can add explicit routed wirelength, congestion, and detailed DRC parsing from DEF/routing reports.
+The physical-effect analysis was extended with routed wirelength and routing/DRC indicators extracted from OpenROAD outputs. All 18 OpenROAD runs include final DEF, route guide, and route DRC reports. These metrics are not used as main model inputs because they are post-routing quantities, but they help explain final QoR behavior. Routed wirelength and routing-complexity indicators show strong correlation with final area and moderate association with critical-path delay, making them plausible auxiliary prediction targets.
+
+Physical-effect correlation highlights:
+
+| Physical metric | Related QoR metric | Pearson correlation |
+|---|---|---:|
+| Routed net count | Final ASIC area | 0.9978 |
+| Route-guide nonempty lines | Final ASIC area | 0.9974 |
+| Route-guide segment-like lines | Final ASIC area | 0.9968 |
+| Approximate routed wirelength | Final ASIC area | 0.9315 |
+| DEF coordinate pair count | Critical-path delay | 0.7149 |
+| Route-guide segment-like lines | Critical-path delay | 0.7083 |
 
 ## Key Takeaways
 
