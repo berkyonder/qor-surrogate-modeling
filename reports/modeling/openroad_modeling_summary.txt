@@ -1,0 +1,232 @@
+====================================================================================================
+OPENROAD DATASET CONTEXT
+====================================================================================================
+
+OpenROAD modeling dataset: data\processed\openroad_modeling_dataset.csv
+Rows: 18
+Columns: 79
+
+Final ASIC area (openroad_synth_chip_area)
+count       18.000000
+mean     42523.336333
+std      14719.355560
+min      11447.842000
+25%      37039.901500
+50%      44335.683000
+75%      49241.055500
+max      75947.788000
+Name: openroad_synth_chip_area, dtype: float64
+
+Final critical path delay (openroad_critical_path_delay)
+count    18.000000
+mean      4.407739
+std       1.344837
+min       2.077100
+25%       3.054925
+50%       5.258450
+75%       5.427850
+max       5.810800
+Name: openroad_critical_path_delay, dtype: float64
+
+Final total power (openroad_total_power)
+count    18.000000
+mean      0.029402
+std       0.069383
+min       0.002190
+25%       0.005203
+50%       0.005700
+75%       0.010242
+max       0.295000
+Name: openroad_total_power, dtype: float64
+
+OpenROAD clock constraints:
+openroad_clock_constraint
+2.0      1
+10.0    17
+Name: count, dtype: int64
+
+Parsed OpenROAD target file: data\extracted_metrics\openroad_qor_targets.csv
+Rows: 18
+Parse status:
+openroad_parse_status
+ok    18
+Name: count, dtype: int64
+
+====================================================================================================
+OPENROAD RANDOM SPLIT RESULTS
+====================================================================================================
+
+### MAE ###
+model                      gradient_boosting  ...  random_forest
+Final critical path delay           1.142591  ...       0.891445
+Final ASIC area                 12805.642482  ...   12572.424298
+Final total power                   0.123125  ...       0.066289
+
+[3 rows x 3 columns]
+
+### RMSE ###
+model                      gradient_boosting  ...  random_forest
+Final critical path delay           1.374420  ...       1.028871
+Final ASIC area                 18813.485097  ...   17819.518473
+Final total power                   0.146236  ...       0.076102
+
+[3 rows x 3 columns]
+
+### R2 ###
+model                      gradient_boosting  ...  random_forest
+Final critical path delay          -0.319008  ...       0.260854
+Final ASIC area                    -0.469689  ...      -0.318496
+Final total power                 -22.362102  ...      -5.326924
+
+[3 rows x 3 columns]
+
+====================================================================================================
+OPENROAD K-FOLD CROSS-VALIDATION RESULTS
+====================================================================================================
+
+### MAE mean ± std ###
+model                           gradient_boosting  ...           random_forest
+Final critical path delay         1.1403 ± 0.8047  ...         1.2666 ± 0.6519
+Final ASIC area            10179.2325 ± 5194.9602  ...  10520.1520 ± 5427.2954
+Final total power                 0.0508 ± 0.0559  ...         0.0441 ± 0.0366
+
+[3 rows x 3 columns]
+
+### RMSE mean ± std ###
+model                           gradient_boosting  ...           random_forest
+Final critical path delay         1.2862 ± 0.8221  ...         1.3462 ± 0.6290
+Final ASIC area            12646.5868 ± 6613.0142  ...  12337.8731 ± 7046.8534
+Final total power                 0.0664 ± 0.0671  ...         0.0565 ± 0.0568
+
+[3 rows x 3 columns]
+
+### R2 mean ± std ###
+model                        gradient_boosting  ...         random_forest
+Final critical path delay  -88.4467 ± 183.9250  ...   -73.8004 ± 151.6985
+Final ASIC area               -1.3490 ± 2.1272  ...      -0.7688 ± 1.1546
+Final total power          -97.1291 ± 134.3492  ...  -148.5818 ± 267.6554
+
+[3 rows x 3 columns]
+
+====================================================================================================
+OPENROAD LEAVE-ONE-BENCHMARK-OUT RESULTS
+====================================================================================================
+
+### MAE mean ± std ###
+model                          gradient_boosting  ...          random_forest
+Final critical path delay        0.9084 ± 0.8815  ...        1.1021 ± 0.8040
+Final ASIC area            8431.7582 ± 4801.4087  ...  8857.5432 ± 6833.1097
+Final total power                0.0221 ± 0.0434  ...        0.0246 ± 0.0416
+
+[3 rows x 3 columns]
+
+### RMSE mean ± std ###
+model                          gradient_boosting  ...          random_forest
+Final critical path delay        0.9085 ± 0.8816  ...        1.1022 ± 0.8041
+Final ASIC area            8431.7582 ± 4801.4087  ...  8857.5432 ± 6833.1097
+Final total power                0.0240 ± 0.0508  ...        0.0265 ± 0.0492
+
+[3 rows x 3 columns]
+
+### R2 mean ± std ###
+model                     gradient_boosting  ...     random_forest
+Final critical path delay  -1450.0978 ± nan  ...  -1347.7558 ± nan
+Final ASIC area                0.0000 ± nan  ...      0.0000 ± nan
+Final total power             -2.4144 ± nan  ...     -2.4319 ± nan
+
+[3 rows x 3 columns]
+
+====================================================================================================
+BEST OPENROAD MODELS BY TARGET & EVALUATION METHOD
+====================================================================================================
+
+--- RANDOM SPLIT ---
+
+Target: Final critical path delay
+  Raw target column: openroad_critical_path_delay
+  Model: random_forest
+  R²: 0.260854
+  MAE: 0.891445
+  RMSE: 1.028871
+  Rows: 18
+  Features: 66
+
+Target: Final ASIC area
+  Raw target column: openroad_synth_chip_area
+  Model: linear_regression
+  R²: 0.691389
+  MAE: 6931.326812
+  RMSE: 8621.093951
+  Rows: 18
+  Features: 66
+
+Target: Final total power
+  Raw target column: openroad_total_power
+  Model: random_forest
+  R²: -5.326924
+  MAE: 0.066289
+  RMSE: 0.076102
+  Rows: 18
+  Features: 66
+
+--- K-FOLD ---
+
+Target: Final critical path delay
+  Raw target column: openroad_critical_path_delay
+  Model: random_forest
+  R²: -73.800393
+  MAE: 1.266630
+  RMSE: 1.346167
+  Rows: 18
+  Features: 66
+
+Target: Final ASIC area
+  Raw target column: openroad_synth_chip_area
+  Model: random_forest
+  R²: -0.768804
+  MAE: 10520.152015
+  RMSE: 12337.873054
+  Rows: 18
+  Features: 66
+
+Target: Final total power
+  Raw target column: openroad_total_power
+  Model: gradient_boosting
+  R²: -97.129057
+  MAE: 0.050820
+  RMSE: 0.066368
+  Rows: 18
+  Features: 66
+
+--- LEAVE-ONE-BENCHMARK-OUT ---
+
+Target: Final critical path delay
+  Raw target column: openroad_critical_path_delay
+  Model: linear_regression
+  R²: -1345.367341
+  MAE: 1.625742
+  RMSE: 1.625798
+  Rows: 18
+  Features: 66
+
+Target: Final ASIC area
+  Raw target column: openroad_synth_chip_area
+  Model: linear_regression
+  R²: 0.000000
+  MAE: 10299.136931
+  RMSE: 10299.136931
+  Rows: 18
+  Features: 66
+
+Target: Final total power
+  Raw target column: openroad_total_power
+  Model: linear_regression
+  R²: -2.389293
+  MAE: 0.029396
+  RMSE: 0.031354
+  Rows: 18
+  Features: 66
+
+====================================================================================================
+SUMMARY COMPLETE
+====================================================================================================

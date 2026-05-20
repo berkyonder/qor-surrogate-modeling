@@ -1,0 +1,10 @@
+evaluation,target,model,rows,features,mae,rmse,r2
+random_split,openroad_synth_chip_area,linear_regression,18,66,6931.326811527091,8621.093950527416,0.6913888610762806
+random_split,openroad_synth_chip_area,random_forest,18,66,12572.424297999958,17819.518472560034,-0.3184958576789758
+random_split,openroad_synth_chip_area,gradient_boosting,18,66,12805.642481697792,18813.485097266956,-0.46968867914614965
+random_split,openroad_critical_path_delay,linear_regression,18,66,0.8712395485720512,1.0777053847466957,0.1890230656272639
+random_split,openroad_critical_path_delay,random_forest,18,66,0.8914454000000009,1.0288712969564275,0.2608535423586025
+random_split,openroad_critical_path_delay,gradient_boosting,18,66,1.1425906527927407,1.3744203811036078,-0.31900842610380176
+random_split,openroad_total_power,linear_regression,18,66,0.10279559654222252,0.11516913326604905,-13.490301681620018
+random_split,openroad_total_power,random_forest,18,66,0.06628882000000016,0.07610158188594399,-5.326923729714471
+random_split,openroad_total_power,gradient_boosting,18,66,0.12312515450426817,0.14623567846595192,-22.36210218665638
