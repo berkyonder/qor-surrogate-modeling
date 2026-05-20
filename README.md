@@ -1,70 +1,225 @@
-# QoR Surrogate Modeling for Early HLS Decision Making
+# QoR Surrogate Modeling for Early HLS-to-ASIC Decision Making
 
-Predicting hardware Quality of Results (QoR), such as area- and latency-related metrics, from early High-Level Synthesis (HLS) information using machine learning.
+Predicting final hardware Quality of Results (QoR), such as **ASIC area**, **critical-path delay**, and optional **power**, from early High-Level Synthesis (HLS), static source-code, and synthesis-level features using machine learning.
 
-This project uses **Bambu HLS** and **PolyBench/C** benchmarks to build a structured dataset containing HLS configuration parameters, static C source-code features, intermediate Bambu HLS metrics, and QoR-related target metrics.
+This project uses **Bambu HLS**, **PolyBench/C**, **Yosys**, and **OpenROAD-flow-scripts** with the **Nangate45** platform to build an initial HLS-to-ASIC surrogate modeling workflow.
+
+```text
+C source code
+    ↓
+Static source-code features
+    ↓
+Bambu HLS metrics
+    ↓
+Yosys synthesis statistics
+    ↓
+OpenROAD final ASIC QoR labels
+    ↓
+Machine-learning surrogate models
+```
+
+The objective is to study whether early-stage design information contains predictive signal for final physical-design QoR, reducing the need to run full OpenROAD place-and-route for every design-space point.
 
 ## Current Status
 
 ### Implemented
 
 - Bambu + PolyBench benchmark automation
-- Bambu log parsing into structured metrics
-- Static C source-code feature extraction via regex heuristics
+- Bambu log parsing into structured early HLS metrics
+- Static C source-code feature extraction using regex-based heuristics
+- Yosys synthesis report parsing
+- OpenROAD final report parsing
+- OpenROAD physical/timing/electrical effect extraction
 - Dataset preprocessing, validation, and visualization
-- Baseline regression models (Linear Regression, Random Forest, Gradient Boosting)
-- Random split, 5-fold cross-validation, and leave-one-benchmark-out evaluation methods
-- Feature importance analysis and interpretation
+- Baseline ML models
+- Feature-engineered ML models
+- Direct-target modeling with regularization and feature selection
+- EDA-aware exploratory modeling
+- Feature-group ablation studies
+- Random split, k-fold cross-validation, and group-aware unseen-benchmark evaluation
+- Final consolidated modeling summary and target-distribution summaries
 
-### Modeling Targets
+## Final Modeling Setup
 
-- `total_area` — predicted hardware area
-- `control_steps` — predicted control flow complexity
+### Input Features
 
-Further target metrics and backend-level evaluation will be clarified with the project supervisor.
+The final surrogate model uses early-stage features available before the expensive OpenROAD backend run.
+
+| Feature Group | Examples |
+|---|---|
+| HLS configuration features | `clock_period`, `dataset_size`, `mem_policy`, `dsp_coeff`, `opt_level` |
+| Static source-code features | loop counts, source lines, arithmetic operation counts, array accesses |
+| Bambu/HLS metrics | `control_steps`, `states`, `area_est`, `mux_area`, `registers`, `flipflops` |
+| Yosys synthesis metrics | cell counts, wire counts, wire bits, module counts |
+| Engineered ratio features | compute-to-memory ratio, wire bits per cell, mux-area share, FFs per cell |
+
+### Target Labels
+
+The main final labels are parsed from OpenROAD reports.
+
+| Target | Meaning | Role |
+|---|---|---|
+| `openroad_synth_chip_area` | Final synthesized ASIC chip/cell area | Main target |
+| `openroad_critical_path_delay` | Final OpenROAD critical-path delay | Main timing target |
+| `openroad_total_power` | Final estimated total power | Optional / exploratory target |
+
+Additional physical/timing closure metrics are parsed for analysis.
+
+| Physical Effect Metric | Description |
+|---|---|
+| `openroad_wns` | Worst negative slack |
+| `openroad_tns` | Total negative slack |
+| `openroad_worst_slack` | Worst reported slack |
+| `openroad_setup_violation_count` | Number of setup violations |
+| `openroad_hold_violation_count` | Number of hold violations |
+| `openroad_max_slew_violation_count` | Number of max slew violations |
+| `openroad_max_cap_violation_count` | Number of max capacitance violations |
+
+These metrics address backend physical/timing closure effects. Explicit routed wirelength and congestion extraction are left as future extensions from DEF/routing reports.
 
 ## Dataset Overview
 
-The main dataset contains **864 design points** generated from:
+### Full Early HLS Dataset
 
-```
+The early HLS dataset contains **864 design points** generated from Bambu/PolyBench design-space exploration.
+
+```text
 18 PolyBench benchmarks
-× 2 dataset sizes (MINI, LARGE)
-× 2 clock periods (5ns, 10ns)
-× 2 memory allocation policies (bram, dram)
-× 2 DSP allocation coefficients (0, 8)
-× 3 optimization levels (0, 1, 2)
+× 2 dataset sizes
+× 2 clock periods
+× 2 memory allocation policies
+× 2 DSP allocation coefficients
+× 3 optimization levels
 = 864 configurations
 ```
 
-### Main Data Files
+### OpenROAD-Labeled Backend Subset
 
-| File | Purpose |
-|------|---------|
-| `data/extracted_metrics/early_hls_metrics_raw.csv` | Raw Bambu metrics parsed from logs |
-| `data/extracted_metrics/static_code_features.csv` | Static C code features (loops, operations, etc.) |
-| `data/processed/early_hls_metrics_clean.csv` | Cleaned dataset after preprocessing |
-| `data/processed/modeling_dataset.csv` | One-hot encoded dataset ready for modeling |
+Full OpenROAD place-and-route is significantly more expensive than early HLS/Yosys extraction. Therefore, a smaller backend-labeled subset was generated for final ASIC QoR prediction.
 
-### Feature Groups
+| Dataset | Rows | Description |
+|---|---:|---|
+| Full Bambu/HLS dataset | 864 | Early-stage design-space points |
+| Yosys-labeled subset | 79 | Designs with parsed Yosys synthesis statistics |
+| OpenROAD-labeled subset | 18 | Final ASIC QoR labels from OpenROAD |
+| Benchmark-diverse OpenROAD runs | 17 | One selected backend run per benchmark at 10 ns |
+| Additional aggressive-clock run | 1 | One extra `orclk2` run for clock-sensitivity exploration |
 
-The dataset includes:
+### OpenROAD Target Distributions
 
-- **HLS Configuration Features**: `dataset_size`, `clock_period`, `mem_policy`, `dsp_coeff`, `opt_level`
-- **Static Code Features**: loop counts, source lines, array accesses, arithmetic operation counts
-- **Intermediate HLS Metrics**: `control_steps`, `frequency_mhz`, `states`, `modules_instantiated`, `flipflops`, `area_est`, `mux_area`, `registers`
+| Target | Mean | Median | Min | Max |
+|---|---:|---:|---:|---:|
+| Final ASIC area | 42,523.3 | 44,335.7 | 11,447.8 | 75,947.8 |
+| Critical-path delay | 4.4077 ns | 5.2585 ns | 2.0771 ns | 5.8108 ns |
+| Total power | 0.0294 W | 0.0057 W | 0.00219 W | 0.295 W |
+
+The power target is highly skewed due to the aggressive-clock outlier. For this reason, power prediction is treated as exploratory.
+
+## Main Results
+
+The main reported results use direct OpenROAD targets, not normalized target ratios.
+
+The most relevant evaluation is group-aware validation by benchmark, because it tests generalization to unseen benchmarks. Since group folds are small, MAE and relative MAE are emphasized over R².
+
+| Target | Evaluation | MAE | Relative MAE | Interpretation |
+|---|---|---:|---:|---|
+| Final ASIC area | GroupKFold by benchmark | 6637.11 | 15.34% | Lowest relative error among evaluated targets |
+| Critical-path delay | GroupKFold by benchmark | 0.763 ns | 18.71% | Moderately predictive timing result |
+| Total power | GroupKFold by benchmark | 0.0157 W | 37.70% | Exploratory due to target skew and clock sensitivity |
+
+### Interpretation
+
+- Among the evaluated targets, final ASIC area showed the lowest relative error.
+- Critical-path delay showed moderate predictability from structural HLS/Yosys features.
+- Power prediction was less stable due to clock sensitivity and skewed target distribution.
+- Group-aware validation is treated as the most realistic evaluation because it tests unseen-benchmark generalization.
+- The results indicate that early HLS, static source-code, and Yosys synthesis features contain predictive information for final OpenROAD ASIC QoR.
+- The results should be interpreted as a feasibility study because the OpenROAD-labeled subset contains 18 backend runs.
+
+## Modeling Experiments
+
+The project includes several modeling stages.
+
+### 1) Baseline Models
+
+Initial models trained on direct OpenROAD targets:
+
+- Linear Regression
+- Random Forest Regressor
+- Gradient Boosting Regressor
+
+### 2) Feature-Engineered Models
+
+Additional experiments using:
+
+- SelectKBest
+- PCA
+- Ridge Regression
+- Gaussian Process Regression
+- Random Forest
+- Gradient Boosting
+
+### 3) Direct-Target Regularized Models
+
+The main direct-target experiments use:
+
+- Elastic Net
+- Ridge Regression
+- PLS Regression
+- Gaussian Process Regression
+- Robust feature selection
+- Ratio features
+- Group-aware validation
+
+### 4) EDA-Aware Exploratory Models
+
+Exploratory models tested normalized/residual targets such as:
+
+- `final_area / area_est`
+- `critical_path_delay / OpenROAD input clock constraint`
+- `total_power / area_est`
+
+These are not used as the main results, because the main project conclusion is based on direct OpenROAD targets. They are retained as exploratory analysis.
+
+### 5) Ablation Study
+
+The ablation study compares feature groups.
+
+| Feature Set | Purpose |
+|---|---|
+| `code_only` | Static source-code features only |
+| `hls_only` | Bambu/HLS metrics only |
+| `yosys_only` | Yosys synthesis statistics only |
+| `hls_plus_yosys` | Combined HLS and synthesis features |
+| `ratios_only` | Engineered structural ratios |
+| `all_direct_features` | All valid pre-OpenROAD features |
+
+Ablation results suggest:
+
+- Area benefits from combined early-stage features.
+- Timing can be predicted meaningfully from HLS structural metrics.
+- Power is most associated with synthesis-level/Yosys features, but remains the least stable target.
 
 ## Workflow
 
-### Full Modeling Pipeline
+### Full Processing and Modeling Pipeline
 
-```powershell
+```bash
 python scripts/extract_static_features.py
+python scripts/parse_yosys_reports.py
+python scripts/parse_openroad_reports.py
 python scripts/preprocess_dataset.py
-python scripts/visualize_dataset.py
+
 python scripts/train_baseline.py
-python scripts/summarize_modeling_results.py
-python scripts/visualize_modeling_results.py
+python scripts/train_feature_engineered_models.py
+python scripts/train_rigorous_feature_models.py
+python scripts/train_eda_aware_models.py
+python scripts/train_ablation_models.py
+
+python scripts/create_final_modeling_summary.py
+python scripts/summarize_target_distributions.py
+python scripts/summarize_openroad_physical_effects.py
+python scripts/plot_final_openroad_results.py
 ```
 
 ### Rebuild Raw Dataset from Bambu Logs
@@ -75,38 +230,68 @@ Get-ChildItem data/raw_reports/*_clk*_mem*_dsp*_opt*_log.txt | ForEach-Object {
 }
 ```
 
-## Models and Evaluation
+## Main Data Files
 
-### Baseline Regressors
+| File | Purpose |
+|---|---|
+| `data/extracted_metrics/early_hls_metrics_raw.csv` | Raw Bambu metrics parsed from logs |
+| `data/extracted_metrics/static_code_features.csv` | Static C source-code features |
+| `data/extracted_metrics/yosys_qor_targets.csv` | Parsed Yosys synthesis statistics |
+| `data/extracted_metrics/openroad_qor_targets.csv` | Parsed OpenROAD final QoR and physical metrics |
+| `data/processed/early_hls_metrics_clean.csv` | Cleaned HLS/static/Yosys/OpenROAD merged dataset |
+| `data/processed/modeling_dataset.csv` | General one-hot encoded modeling dataset |
+| `data/processed/openroad_modeling_dataset.csv` | OpenROAD-labeled modeling dataset |
 
-- **Linear Regression** — baseline interpretability
-- **Random Forest Regressor** — ensemble non-linearity and feature importance
-- **Gradient Boosting Regressor** — boosted iterative refinement
+## Reports and Outputs
 
-### Evaluation Methods
+| Directory / File | Contents |
+|---|---|
+| `reports/data_quality/` | Dataset quality reports, missing values, correlations, group summaries |
+| `reports/figures/` | Dataset visualizations |
+| `reports/modeling/openroad_all_model_results.csv` | Baseline model results |
+| `reports/modeling/openroad_feature_engineering_results.csv` | Feature engineering experiment results |
+| `reports/modeling/openroad_rigorous_feature_results.csv` | Direct-target regularized model results |
+| `reports/modeling/openroad_eda_aware_results.csv` | Exploratory EDA-aware normalized-target results |
+| `reports/modeling/openroad_ablation_results.csv` | Feature-group ablation study results |
+| `reports/modeling/final_openroad_modeling_summary.md` | Final consolidated modeling summary |
+| `reports/modeling/openroad_target_distribution_summary.md` | Target distribution and scale summary |
+| `reports/modeling/openroad_physical_effects_summary.md` | Physical/timing closure effect summary |
+| `reports/modeling/final_plots/` | Final target distribution plots |
 
-| Method | Description |
-|--------|-------------|
-| **Random Split** | 80/20 train/test split |
-| **5-Fold CV** | 5-fold cross-validation with mean ± std metrics |
-| **Leave-One-Benchmark-Out** | Generalization across unseen benchmarks |
+## Physical Effects Summary
 
-### Feature Modes
+The OpenROAD parser currently inspects the following physical/timing closure effects:
 
-The modeling pipeline evaluates two feature configurations:
+- WNS
+- TNS
+- Worst slack
+- Minimum feasible clock period
+- Fmax
+- Critical-path slack
+- Setup violation count
+- Hold violation count
+- Max slew violation count
+- Max capacitance violation count
 
-- **Full Mode**: uses all available early HLS/static features except the target
-- **No-Leakage Mode**: removes near-direct proxy features such as `area_est`, `mux_area`, or `states`
+Current OpenROAD physical-effect summary:
 
-## Outputs
+| Metric | Total Violations | Max per Design |
+|---|---:|---:|
+| Setup violations | 0 | 0 |
+| Hold violations | 0 | 0 |
+| Max slew violations | 0 | 0 |
+| Max capacitance violations | 3 | 2 |
 
-Generated outputs are organized as follows:
+Future work can add explicit routed wirelength, congestion, and detailed DRC parsing from DEF/routing reports.
 
-| Directory | Contents |
-|-----------|----------|
-| `reports/data_quality/` | Dataset quality reports and validation plots |
-| `reports/figures/` | Dataset and modeling visualizations |
-| `reports/modeling/` | Model predictions, feature importance, and evaluation metrics |
+## Key Takeaways
+
+- Early HLS, static code, and Yosys synthesis features contain measurable predictive information for final OpenROAD ASIC QoR.
+- Final area prediction achieved approximately **15.34% relative MAE** under unseen-benchmark validation.
+- Critical-path delay prediction achieved approximately **18.71% relative MAE** under unseen-benchmark validation.
+- Power prediction remains exploratory because it is more sensitive to clock constraints and physical implementation details.
+- The OpenROAD-labeled dataset is small due to backend runtime cost; additional backend-labeled samples are expected to improve robustness.
+- The project provides an initial HLS-to-ASIC surrogate modeling workflow and evaluates its feasibility on a small OpenROAD-labeled subset.
 
 ## Documentation
 
@@ -114,6 +299,9 @@ For detailed setup instructions and toolchain overview, see [docs/initial_setup.
 
 ## Notes
 
-- The current workflow demonstrates dataset generation, preprocessing, visualization, and baseline surrogate modeling using Bambu-level HLS metrics.
-- Some configurations can produce identical QoR metrics; these are kept because they represent meaningful design-space observations.
-- Feature importance analysis prioritizes no-leakage models to ensure only non-trivial predictive signals are captured.
+- The full early-stage Bambu/HLS dataset contains 864 design-space points.
+- The final ASIC/OpenROAD-labeled subset contains 18 backend runs.
+- Direct OpenROAD targets are used as the main modeling targets.
+- Normalized-target experiments are included only as exploratory EDA-aware analysis.
+- Some configurations can produce identical or similar early QoR metrics; these are preserved because they represent meaningful design-space observations.
+- Group-aware validation is emphasized because it better reflects generalization to unseen benchmarks.
