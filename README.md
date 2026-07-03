@@ -309,7 +309,9 @@ Physical-effect correlation highlights:
 
 ## Documentation
 
-For detailed setup instructions and toolchain overview, see [docs/initial_setup.md](docs/initial_setup.md).
+For the final project report, see [docs/qor_surrogate_modeling_final_report.pdf](docs/qor_surrogate_modeling_final_report.pdf).
+
+For detailed setup instructions and toolchain overview, see [docs/initial_setup.md](docs/initial_setup.md) or the PDF version [docs/initial_setup.pdf](docs/initial_setup.pdf).
 
 ## Notes
 
