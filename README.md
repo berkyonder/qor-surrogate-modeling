@@ -313,6 +313,8 @@ For the final project report, see [docs/qor_surrogate_modeling_final_report.pdf]
 
 For detailed setup instructions and toolchain overview, see [docs/initial_setup.md](docs/initial_setup.md) or the PDF version [docs/initial_setup.pdf](docs/initial_setup.pdf).
 
+For the final presentation slides, see [docs/qor_surrogate_modeling_final_presentation.pptx](docs/qor_surrogate_modeling_final_presentation.pptx) or the PDF version [docs/qor_surrogate_modeling_final_presentation.pdf](docs/qor_surrogate_modeling_final_presentation.pdf).
+
 ## Notes
 
 - The full early-stage Bambu/HLS dataset contains 864 design-space points.
